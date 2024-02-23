@@ -1,0 +1,40 @@
+[
+    {
+      "Title": "New Digital Banking Platform Launch",
+      "Content": "We are excited to announce the launch of our new digital banking platform, providing our customers with enhanced online and mobile banking services. The platform offers a user-friendly interface, advanced security features, and convenient access to a wide range of banking transactions.",
+      "Image_url": "https://via.placeholder.com/600/FF2921",
+      "Created_at": "2022-01-15T10:00:00",
+      "Updated_at": "2022-01-15T10:00:00",
+      "Comments": [
+        {
+          "Text": "This is great news! I can't wait to try out the new digital banking platform.",
+          "CreatedAt": "2022-01-15T10:30:00",
+          "UpdatedAt": "2022-01-15T10:30:00"
+        },
+        {
+          "Text": "Finally! The old online banking system was outdated and clunky.",
+          "CreatedAt": "2022-01-15T11:45:00",
+          "UpdatedAt": "2022-01-15T11:45:00"
+        }
+      ]
+    },
+    {
+      "Title": "Upgraded Security Measures",
+      "Content": "To ensure the highest level of security for our customers, we have implemented upgraded security measures across all our banking systems. These measures include multi-factor authentication, real-time monitoring, and encryption techniques to safeguard customer data.",
+      "Image_url": "https://via.placeholder.com/600/002921",
+      "Created_at": "2022-02-01T09:00:00",
+      "Updated_at": "2022-02-01T09:00:00",
+      "Comments": [
+        {
+          "Text": "Security is a top priority. I appreciate the efforts taken to protect our information.",
+          "CreatedAt": "2022-02-01T09:15:00",
+          "UpdatedAt": "2022-02-01T09:15:00"
+        },
+        {
+          "Text": "Great to hear that the bank is investing in advanced security technologies.",
+          "CreatedAt": "2022-02-01T10:20:00",
+          "UpdatedAt": "2022-02-01T10:20:00"
+        }
+      ]
+    }
+  ]
