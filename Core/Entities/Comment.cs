@@ -13,8 +13,7 @@ namespace Core.Entities
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int NewsPostId { get; set; }
-        // [ForeignKey("NewsPostId")]
+        public int NewsPostId { get; set; } 
         public News News { get; set; }
 
     }

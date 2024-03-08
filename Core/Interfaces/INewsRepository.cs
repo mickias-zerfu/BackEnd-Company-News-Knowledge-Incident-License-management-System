@@ -16,8 +16,7 @@ namespace Core.Interfaces
 
 
 
-        Task<Comment> GetCommentByIdAsync(int id);
-        Task<IReadOnlyList<Comment>> GetCommentsForNewsAsync(int newsId);
+        Task<IReadOnlyList<Comment>> GetCommentByIdAsync(int newsId); 
         Task<Comment> CreateCommentAsync(Comment comment);
         Task<Comment> UpdateCommentAsync(Comment comment);
         Task DeleteCommentAsync(int id);

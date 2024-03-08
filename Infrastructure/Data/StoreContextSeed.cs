@@ -21,21 +21,11 @@ namespace Infrastructure.Data
 
                 var newsList = JsonSerializer.Deserialize<List<News>>(newsData, options);
 
-                foreach (var newsItem in newsList)
-                {
-                    if (newsItem.Comments != null)
-                    {
-                        foreach (var comment in newsItem.Comments)
-                        {
-                            comment.News = newsItem; // Assign the news article to the comment
-                        }
-                    }
-                }
-
                 context.News.AddRange(newsList);
             }
-
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
         }
+
+
     }
 }
