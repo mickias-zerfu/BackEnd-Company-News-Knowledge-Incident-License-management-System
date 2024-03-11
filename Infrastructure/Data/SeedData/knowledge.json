@@ -1,0 +1,30 @@
+[
+    {
+      "Problem": "How to reset a password?",
+      "ProblemDescription": "Guide on resetting passwords for user accounts.",
+      "Solution": "1. Go to the login page.\n2. Click on 'Forgot Password'.\n3. Follow the instructions to reset your password.",
+      "Created_at": "2022-01-15T09:30:00",
+      "Updated_at": "2022-01-16T14:45:00"
+    },
+    {
+      "Problem": "How to troubleshoot network connectivity issues?",
+      "ProblemDescription": "Steps to diagnose and fix network connectivity Problems.",
+      "Solution": "1. Check network cables and connections.\n2. Restart routers and switches.\n3. Verify IP configurations.\n4. Contact your ISP for further assistance.",
+      "Created_at": "2022-02-10T11:15:00",
+      "Updated_at": "2022-02-11T09:20:00"
+    },
+    {
+      "Problem": "How to install software?",
+      "ProblemDescription": "Instructions for installing software on Windows and macOS.",
+      "Solution": "1. Download the software installer.\n2. Run the installer executable.\n3. Follow the on-screen prompts to complete the installation.",
+      "Created_at": "2022-03-05T13:20:00",
+      "Updated_at": "2022-03-06T10:10:00"
+    },
+    {
+      "Problem": "How to create a new user account?",
+      "ProblemDescription": "Steps for creating a new user account in the system.",
+      "Solution": "1. Go to the user management page.\n2. Click on 'Add New User'.\n3. Fill in the required details.\n4. Save the new user account.",
+      "Created_at": "2022-04-20T08:45:00",
+      "Updated_at": "2022-04-21T15:30:00"
+    }
+  ]

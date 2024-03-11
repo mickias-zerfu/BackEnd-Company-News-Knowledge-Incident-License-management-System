@@ -1,0 +1,34 @@
+[
+    {
+      "IncidentTitle": "Network Connectivity Issue",
+      "IncidentDescription": "Users are unable to connect to the network.",
+      "StatusAction": ["Investigating", "Identified", "Resolved"],
+      "QuickReviews": ["Check network cables", "Restart routers", "Contact ISP"],
+      "SolutionToIncident": ["Reconfigure network settings", "Replace faulty hardware"],
+      "Remark": "Issue resolved after replacing a faulty switch."
+    },
+    {
+      "IncidentTitle": "Application Crash",
+      "IncidentDescription": "The application is crashing unexpectedly.",
+      "StatusAction": ["Investigating", "Identified"],
+      "QuickReviews": ["Check error logs", "Analyze crash dumps"],
+      "SolutionToIncident": ["Apply software patch", "Optimize code"],
+      "Remark": "Pending resolution, development team actively working on bug fixes."
+    },
+    {
+      "IncidentTitle": "Data Loss",
+      "IncidentDescription": "Critical data has been lost due to server failure.",
+      "StatusAction": ["Investigating", "Identified", "Resolved"],
+      "QuickReviews": ["Restore from backups", "Perform data recovery"],
+      "SolutionToIncident": ["Implement redundancy measures", "Regularly backup data"],
+      "Remark": "Data successfully restored from backup, additional safeguards implemented."
+    },
+    {
+      "IncidentTitle": "Email Delivery Delay",
+      "IncidentDescription": "Emails are being delayed in delivery.",
+      "StatusAction": ["Investigating"],
+      "QuickReviews": ["Check mail server logs", "Monitor network traffic"],
+      "SolutionToIncident": ["Optimize mail server configurations", "Contact email service provider"],
+      "Remark": "Issue still under investigation, email team actively working on a resolution."
+    }
+  ]
