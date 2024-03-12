@@ -1,4 +1,5 @@
 using Core.Interfaces;
+using FileUpload.Services;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +16,27 @@ builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
+builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
+builder.Services.AddScoped<ISharedResourceRepository, SharedResourceRepository>();
+builder.Services.AddScoped < IFileService, FileService > ();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
+    app.UseStaticFiles();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

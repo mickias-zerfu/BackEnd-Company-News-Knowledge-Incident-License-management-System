@@ -35,7 +35,6 @@ namespace Infrastructure.Data
         public async Task<News> GetNewsByIdAsync(int id)
         {
             return await _context.News
-        .Include(news => news.Comments.Where(comment => comment.NewsPostId == id))
         .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task<IReadOnlyList<Comment>> GetCommentsForNewsAsync(int newsId)
@@ -61,10 +60,26 @@ namespace Infrastructure.Data
         }
         public async Task<News> UpdateNewsAsync(News news)
         {
-            _context.Entry(news).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return news;
+            try
+            {
+                var existingEntity = await _context.News.FindAsync(news.Id);
+                if (existingEntity == null)
+                {
+                    throw new Exception("News with the specified ID was not found.");
+                }
+
+                _context.Entry(existingEntity).CurrentValues.SetValues(news);
+                await _context.SaveChangesAsync();
+
+                return existingEntity;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                throw new Exception("An error occurred while updating the news.", ex);
+            }
         }
+
         public async Task<IReadOnlyList<Comment>> GetCommentByIdAsync(int id)
         {
             return await _context.Comments.Where(c => c.NewsPostId == id)

@@ -43,18 +43,26 @@ namespace API.Controllers
         {
             if (id != news.Id)
             {
-                return BadRequest();
+                return BadRequest("The ID in the request body does not match the ID in the URL.");
             }
 
             var existingNews = await _repo.GetNewsByIdAsync(id);
             if (existingNews == null)
             {
-                return NotFound();
+                return NotFound("News with the specified ID was not found.");
             }
 
-            var updatedNews = await _repo.UpdateNewsAsync(news);
-            return Ok(updatedNews);
+            try
+            {
+                var updatedNews = await _repo.UpdateNewsAsync(news);
+                return Ok(updatedNews);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while updating the news: {ex.Message}");
+            }
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNews(int id)
