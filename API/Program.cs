@@ -21,11 +21,22 @@ builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
 builder.Services.AddScoped<ISharedResourceRepository, SharedResourceRepository>();
 builder.Services.AddScoped < IFileService, FileService > ();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
+    app.UseStaticFiles();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

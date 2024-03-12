@@ -29,6 +29,7 @@ public class SharedResourceRepository : ISharedResourceRepository
     {
         try
         {
+                DateTime today = DateTime.Today;
             var fileDetails = new SharedResource()
             {
                 Id = 0,
@@ -36,8 +37,8 @@ public class SharedResourceRepository : ISharedResourceRepository
                 FileDescription = fileData.FileDescription,
                 FileName = fileData.FileDetails.FileName,
                 FileType = GetFileType(fileData.FileDetails),
-                Created_at = "new Date()",
-                Updated_at = "new Date"
+                Created_at = today.ToString(),
+                Updated_at = today.ToString()
             };
             using (var stream = new MemoryStream())
             {

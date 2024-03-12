@@ -16,19 +16,23 @@ namespace FileUpload.Controllers
         {
             _uploadService = uploadService;
         }
- 
+
         [HttpPost("PostSingleFile")]
         public async Task<ActionResult> PostSingleFile([FromForm] FileUploadModel fileDetails)
         {
-            if(fileDetails == null)
+            if (fileDetails == null)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _uploadService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType);
-                return Ok();
+                var imageStoredUrl = await _uploadService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType);
+
+                // return Ok(new { ImageUrl = imageUrl });
+                var baseUrl = Request.Scheme + "://" + Request.Host.Value;
+                var imageUrl = baseUrl + "/" + imageStoredUrl.Replace("\\", "/");
+                return Ok(new { ImageUrl = imageUrl });
             }
             catch (Exception)
             {

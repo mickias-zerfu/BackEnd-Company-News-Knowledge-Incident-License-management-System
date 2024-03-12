@@ -8,24 +8,33 @@ namespace FileUpload.Services
 {
     public class FileService : IFileService
     {
-        private readonly  StoreContext _Context;
+        private readonly StoreContext _Context;
 
         public FileService(StoreContext context)
         {
             this._Context = context;
         }
 
-        public async Task PostFileAsync(IFormFile fileData, FileType fileType)
+        public async Task<string> PostFileAsync(IFormFile fileData, FileType fileType)
         {
             try
             {
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileData.FileName);
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await fileData.CopyToAsync(stream);
+                }
+
                 var fileDetails = new FileDetails()
                 {
                     ID = 0,
-                    FileName = fileData.FileName,
-                    FileType = fileType,
+                    FileName = fileName,
+                    FileType = fileType, 
                 };
-
                 using (var stream = new MemoryStream())
                 {
                     fileData.CopyTo(stream);
@@ -34,18 +43,19 @@ namespace FileUpload.Services
 
                 var result = _Context.FileDetails.Add(fileDetails);
                 await _Context.SaveChangesAsync();
+
+                return dbPath;
             }
             catch (Exception)
             {
                 throw;
             }
         }
-
         public async Task PostMultiFileAsync(List<FileUploadModel> fileData)
         {
             try
             {
-                foreach(FileUploadModel file in fileData)
+                foreach (FileUploadModel file in fileData)
                 {
                     var fileDetails = new FileDetails()
                     {
@@ -57,7 +67,7 @@ namespace FileUpload.Services
                     using (var stream = new MemoryStream())
                     {
                         file.FileDetails.CopyTo(stream);
-                        fileDetails.FileData = stream.ToArray();
+                        // fileDetails.FileData = stream.ToArray();
                     }
 
                     var result = _Context.FileDetails.Add(fileDetails);
@@ -74,7 +84,7 @@ namespace FileUpload.Services
         {
             try
             {
-                var file =  _Context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
+                var file = _Context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
 
                 var content = new System.IO.MemoryStream(file.Result.FileData);
                 var path = Path.Combine(
@@ -93,9 +103,9 @@ namespace FileUpload.Services
         {
             using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
             {
-               await stream.CopyToAsync(fileStream);
+                await stream.CopyToAsync(fileStream);
             }
         }
-   
+
     }
 }
