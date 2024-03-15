@@ -34,10 +34,10 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     IncidentTitle = table.Column<string>(type: "TEXT", nullable: false),
                     IncidentDescription = table.Column<string>(type: "TEXT", nullable: false),
-                    StatusAction = table.Column<string>(type: "TEXT", nullable: false),
-                    QuickReviews = table.Column<string>(type: "TEXT", nullable: false),
-                    SolutionToIncident = table.Column<string>(type: "TEXT", nullable: false),
-                    Remark = table.Column<string>(type: "TEXT", nullable: false)
+                    StatusAction = table.Column<string>(type: "TEXT", nullable: true),
+                    QuickReviews = table.Column<string>(type: "TEXT", nullable: true),
+                    SolutionToIncident = table.Column<string>(type: "TEXT", nullable: true),
+                    Remark = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

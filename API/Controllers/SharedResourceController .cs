@@ -59,14 +59,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<SharedResource>> UpdateSharedResource(int id, SharedResource sharedResource)
+        public async Task<ActionResult<SharedResource>> UpdateSharedResource(int id, [FromForm] SharedResourceUploadModel sharedResource)
         {
-            if (id != sharedResource.Id)
-            {
-                return BadRequest();
-            }
+            // if (id != sharedResource.Id)
+            // {
+            //     return BadRequest();
+            // }
 
-            var updatedSharedResource = await _repository.UpdateSharedResourceAsync(sharedResource);
+            var updatedSharedResource = await _repository.UpdateSharedResourceAsync(id, sharedResource);
             return Ok(updatedSharedResource);
         }
 
@@ -76,7 +76,7 @@ namespace API.Controllers
             await _repository.DeleteSharedResourceAsync(id);
             return NoContent();
         }
-        
+
         [HttpGet("DownloadFile/{id}")]
         public async Task<ActionResult> DownloadFile(int id)
         {
@@ -87,13 +87,14 @@ namespace API.Controllers
 
             try
             {
-                await _repository.DownloadFileById(id);
-                return Ok();
+                string filePath = await _repository.DownloadFileById(id);
+                 return Ok(new { FilePath = filePath });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return StatusCode(500, $"An error occurred while downloading the file: {ex.Message}");
             }
+
         }
 
 

@@ -85,19 +85,15 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("QuickReviews")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Remark")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SolutionToIncident")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StatusAction")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

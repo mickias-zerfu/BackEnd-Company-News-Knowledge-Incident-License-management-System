@@ -29,14 +29,15 @@ public class SharedResourceRepository : ISharedResourceRepository
     {
         try
         {
-                DateTime today = DateTime.Today;
+            DateTime today = DateTime.Today;
             var fileDetails = new SharedResource()
             {
                 Id = 0,
                 FileTitle = fileData.FileTitle,
                 FileDescription = fileData.FileDescription,
                 FileName = fileData.FileDetails.FileName,
-                FileType = GetFileType(fileData.FileDetails),
+                FileType = fileData.FileType,
+                // FileType = GetFileType(fileData.FileDetails),
                 Created_at = today.ToString(),
                 Updated_at = today.ToString()
             };
@@ -56,12 +57,51 @@ public class SharedResourceRepository : ISharedResourceRepository
         }
     }
 
-    public async Task<SharedResource> UpdateSharedResourceAsync(SharedResource sharedResource)
+    public async Task<SharedResource> UpdateSharedResourceAsync(int id, SharedResourceUploadModel fileData)
     {
-        _Context.Entry(sharedResource).State = EntityState.Modified;
-        await _Context.SaveChangesAsync();
-        return sharedResource;
+        try
+        {
+            if (fileData == null)
+            {
+                throw new ArgumentNullException(nameof(fileData), "File data is null.");
+            }
+
+            DateTime today = DateTime.Today;
+            var existingResource = await _Context.SharedResources.FindAsync(id);
+            if (existingResource == null)
+            {
+                // Resource with the specified ID not found
+                return null;
+            }
+
+            // Update the existing resource properties
+            existingResource.FileTitle = fileData.FileTitle ?? existingResource.FileTitle; // Use existing title if new title is null
+            existingResource.FileDescription = fileData.FileDescription;
+            existingResource.FileName = fileData.FileDetails != null ? fileData.FileDetails.FileName : existingResource.FileName;
+            existingResource.FileType = fileData.FileType;
+            existingResource.Updated_at = today.ToString();
+
+            // Update file data if provided
+            if (fileData.FileDetails != null)
+            {
+                using (var stream = new MemoryStream())
+                {
+                    fileData.FileDetails.CopyTo(stream);
+                    existingResource.FileData = stream.ToArray();
+                }
+            }
+
+            // Save changes to the database
+            await _Context.SaveChangesAsync();
+
+            return existingResource;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
+
 
     public async Task DeleteSharedResourceAsync(int id)
     {
@@ -73,24 +113,38 @@ public class SharedResourceRepository : ISharedResourceRepository
         }
     }
 
-    public async Task DownloadFileById(int Id)
+    public async Task<String> DownloadFileById(int Id)
     {
         try
         {
-            var file = _Context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
+            var file = await _Context.SharedResources.FindAsync(Id);
 
-            var content = new System.IO.MemoryStream(file.Result.FileData);
-            var path = Path.Combine(
-               "C:\\Users\\HP\\Desktop\\AGENDAS", "FileDownloaded",
-               file.Result.FileName);
+            if (file == null)
+            {
+                // Handle the case when the file is not found
+                return "File not found";
+            }
 
-            await CopyStream(content, path);
+            var content = new System.IO.MemoryStream(file.FileData);
+            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources/FileDownloaded");
+
+            // Create the directory if it does not exist
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            var filePath = Path.Combine(directoryPath, file.FileName);
+
+            await CopyStream(content, filePath);
+             return filePath;
         }
         catch (Exception)
         {
             throw;
         }
     }
+
 
     private FileType GetFileType(IFormFile fileData)
     {

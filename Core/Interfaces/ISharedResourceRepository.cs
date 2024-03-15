@@ -12,8 +12,8 @@ namespace Core.Interfaces
         Task<SharedResource> GetSharedResourceByIdAsync(int id);
         Task<IReadOnlyList<SharedResource>> GetSharedResourcesAsync();
         public Task <SharedResource> CreateSharedResourceAsync(SharedResourceUploadModel fileData);
-        Task<SharedResource> UpdateSharedResourceAsync(SharedResource sharedResource);
+        Task<SharedResource> UpdateSharedResourceAsync(int id, SharedResourceUploadModel fileData);
         Task DeleteSharedResourceAsync(int id);
-        public Task DownloadFileById(int fileName); 
+        public Task<string> DownloadFileById(int fileName); 
     }
 }

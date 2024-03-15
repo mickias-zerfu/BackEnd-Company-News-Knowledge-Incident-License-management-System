@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240311200919_InitialCreate")]
+    [Migration("20240314132247_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -88,19 +88,15 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("QuickReviews")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Remark")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SolutionToIncident")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StatusAction")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
