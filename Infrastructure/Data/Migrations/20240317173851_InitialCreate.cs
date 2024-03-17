@@ -98,6 +98,23 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SoftwareProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Version = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Vendor = table.Column<string>(type: "TEXT", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoftwareProducts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -119,10 +136,75 @@ namespace Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Licenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IssuedTo = table.Column<string>(type: "TEXT", nullable: false),
+                    IssuedBy = table.Column<string>(type: "TEXT", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ActivationDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    MaxUsers = table.Column<int>(type: "INTEGER", nullable: false),
+                    Activated = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LicenseType = table.Column<int>(type: "INTEGER", nullable: false),
+                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    SoftwareProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Licenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Licenses_SoftwareProducts_SoftwareProductId",
+                        column: x => x.SoftwareProductId,
+                        principalTable: "SoftwareProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LicenseManagers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    ProfilePictureUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    LicenseId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LicenseManagers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LicenseManagers_Licenses_LicenseId",
+                        column: x => x.LicenseId,
+                        principalTable: "Licenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_NewsPostId",
                 table: "Comments",
                 column: "NewsPostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LicenseManagers_LicenseId",
+                table: "LicenseManagers",
+                column: "LicenseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Licenses_SoftwareProductId",
+                table: "Licenses",
+                column: "SoftwareProductId");
         }
 
         /// <inheritdoc />
@@ -141,10 +223,19 @@ namespace Infrastructure.Data.Migrations
                 name: "KnowledgeBases");
 
             migrationBuilder.DropTable(
+                name: "LicenseManagers");
+
+            migrationBuilder.DropTable(
                 name: "SharedResources");
 
             migrationBuilder.DropTable(
                 name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Licenses");
+
+            migrationBuilder.DropTable(
+                name: "SoftwareProducts");
         }
     }
 }

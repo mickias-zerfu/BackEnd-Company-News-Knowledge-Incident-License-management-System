@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Core.Entities;
+using Core.Entities.licenseEntity;
 
 namespace Infrastructure.Data
 {
@@ -60,8 +61,29 @@ namespace Infrastructure.Data
             //     await context.SharedResources.AddRangeAsync(sharedResources);
             //     await context.SaveChangesAsync();
             // }
-          
-          
+
+
+
+            if (!context.SoftwareProducts.Any())
+            {
+                var softwareProductsData = File.ReadAllText("../Infrastructure/Data/SeedData/SoftwareProduct.json");
+                var softwareProducts = JsonSerializer.Deserialize<List<SoftwareProduct>>(softwareProductsData);
+                context.SoftwareProducts.AddRange(softwareProducts);
+            }
+
+            if (!context.Licenses.Any())
+            {
+                var licensesData = File.ReadAllText("../Infrastructure/Data/SeedData/License.json");
+                var licenses = JsonSerializer.Deserialize<List<License>>(licensesData);
+                context.Licenses.AddRange(licenses);
+            }
+
+            if (!context.LicenseManagers.Any())
+            {
+                var licenseManagersData = File.ReadAllText("../Infrastructure/Data/SeedData/LicenseManager.json");
+                var licenseManagers = JsonSerializer.Deserialize<List<LicenseManager>>(licenseManagersData);
+                context.LicenseManagers.AddRange(licenseManagers);
+            }
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
         }
     }

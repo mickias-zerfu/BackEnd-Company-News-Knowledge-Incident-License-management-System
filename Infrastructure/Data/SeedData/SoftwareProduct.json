@@ -1,0 +1,19 @@
+[
+    {
+      "Id": 1,
+      "Name": "Product 1",
+      "Version": "1.0",
+      "Description": "Description of Product 1",
+      "Vendor": "Vendor A",
+      "ReleaseDate": "2024-03-25T00:00:00"
+    },
+    {
+      "Id": 2,
+      "Name": "Product 2",
+      "Version": "2.0",
+      "Description": "Description of Product 2",
+      "Vendor": "Vendor B",
+      "ReleaseDate": "2024-03-25T00:00:00"
+    }
+  ]
+  

@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using FileUpload.Services;
 using Infrastructure.Data;
+using Infrastructure.Data.Licenses;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,10 @@ builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
 builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
 builder.Services.AddScoped<ISharedResourceRepository, SharedResourceRepository>();
 builder.Services.AddScoped < IFileService, FileService > ();
+
+builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
+builder.Services.AddScoped<ISoftwareProductRepository, SoftwareProductRepository>();
+builder.Services.AddScoped<ILicenseManagerRepository, LicenseManagerRepository>();
 
 builder.Services.AddCors(options =>
 {

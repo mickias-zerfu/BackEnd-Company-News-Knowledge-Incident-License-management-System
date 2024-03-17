@@ -193,6 +193,128 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("SharedResources");
                 });
 
+            modelBuilder.Entity("Core.Entities.licenseEntity.License", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ActivationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IssuedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IssuedTo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LicenseType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MaxUsers")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SoftwareProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SoftwareProductId");
+
+                    b.ToTable("Licenses");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LicenseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LicenseId");
+
+                    b.ToTable("LicenseManagers");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.SoftwareProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Vendor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SoftwareProducts");
+                });
+
             modelBuilder.Entity("Core.Entities.Comment", b =>
                 {
                     b.HasOne("Core.Entities.News", "News")
@@ -204,9 +326,36 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("News");
                 });
 
+            modelBuilder.Entity("Core.Entities.licenseEntity.License", b =>
+                {
+                    b.HasOne("Core.Entities.licenseEntity.SoftwareProduct", "SoftwareProduct")
+                        .WithMany("Licenses")
+                        .HasForeignKey("SoftwareProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoftwareProduct");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManager", b =>
+                {
+                    b.HasOne("Core.Entities.licenseEntity.License", "License")
+                        .WithMany()
+                        .HasForeignKey("LicenseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("License");
+                });
+
             modelBuilder.Entity("Core.Entities.News", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.SoftwareProduct", b =>
+                {
+                    b.Navigation("Licenses");
                 });
 #pragma warning restore 612, 618
         }
