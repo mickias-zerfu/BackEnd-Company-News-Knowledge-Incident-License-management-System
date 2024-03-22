@@ -20,7 +20,7 @@ namespace Infrastructure.Data.config
             // Configure foreign key relationship with News entity
             builder.HasOne(c => c.News)
                 .WithMany(n => n.Comments)
-                .HasForeignKey(c => c.NewsPostId)
+                .HasForeignKey(c => c.NewsId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

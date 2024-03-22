@@ -17,8 +17,7 @@ namespace Core.Entities
     public string? Content { get; set; }
     public string? Image_url { get; set; }
     public string? Created_at { get; set; }
-    public string? Updated_at { get; set; }
-    [JsonIgnore]
-    public List<Comment> Comments { get; set; }
+    public string? Updated_at { get; set; } 
+    public ICollection<Comment>? Comments { get; set; }
     }
 }

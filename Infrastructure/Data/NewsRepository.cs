@@ -20,28 +20,11 @@ namespace Infrastructure.Data
             var news = await _context.News.Include(n => n.Comments).ToListAsync();
             return news;
         }
-        // public async Task<News> GetNewsByIdAsync(int id)
-        // {
-        //     var news = await _context.News.Include(n => n.Comments).FirstOrDefaultAsync(n => n.Id == 1);
-        //     return news;
-        // }
-        // public async Task<News> GetNewsByIdAsync(int id)
-        // {
-        //     return await _context.News.Include(p => p.Comments)
-        //     .FirstOrDefaultAsync(x => x.Id == id);
-
-        //     // return await _context.News.FindAsync(id);
-        // }
         public async Task<News> GetNewsByIdAsync(int id)
         {
             return await _context.News
+                .Include(n => n.Comments)
         .FirstOrDefaultAsync(x => x.Id == id);
-        }
-        public async Task<IReadOnlyList<Comment>> GetCommentsForNewsAsync(int newsId)
-        {
-            return await _context.Comments
-                .Where(c => c.NewsPostId == newsId)
-                .ToListAsync();
         }
         public async Task<News> CreateNewsAsync(News news)
         {
@@ -80,22 +63,45 @@ namespace Infrastructure.Data
             }
         }
 
-        public async Task<IReadOnlyList<Comment>> GetCommentByIdAsync(int id)
+        public async Task<Comment> GetCommentByIdAsync(int commentsId)
         {
-            return await _context.Comments.Where(c => c.NewsPostId == id)
-        .ToListAsync();
+
+            return await _context.Comments
+        .FirstOrDefaultAsync(x => x.Id == commentsId);
         }
-        public async Task<Comment> CreateCommentAsync(Comment comment)
+        public async Task<IReadOnlyList<Comment>> GetCommentsByNewsIdAsync(int newsId)
         {
+            return await _context.Comments
+                .Where(c => c.NewsId == newsId)
+                .ToListAsync();
+        }
+        public async Task<Comment> CreateCommentAsync(int newsId, Comment comment)
+        { 
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
             return comment;
         }
         public async Task<Comment> UpdateCommentAsync(Comment comment)
         {
+
+            var existingComment = await _context.Comments.FindAsync(comment.Id);
+            if (existingComment == null)
+            {
+                throw new ArgumentException($"License manager with ID {comment.Id} not found.");
+            }
+            _context.Entry(existingComment).State = EntityState.Detached;
+            _context.Attach(comment);
             _context.Entry(comment).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return comment;
+            try
+            {
+                await _context.SaveChangesAsync();
+                return comment;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // Handle concurrency conflicts, if necessary
+                throw new Exception("Concurrency conflict occurred");
+            }
         }
         public async Task DeleteCommentAsync(int id)
         {

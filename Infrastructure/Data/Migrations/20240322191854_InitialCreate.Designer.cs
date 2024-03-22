@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240321114323_InitialCreate")]
+    [Migration("20240322191854_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -29,7 +29,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NewsPostId")
+                    b.Property<int>("NewsId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Text")
@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NewsPostId");
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Comments");
                 });
@@ -290,15 +290,15 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManagerLicense", b =>
                 {
-                    b.Property<int>("LicenseManagerId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("LicenseId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("LicenseManagerId", "LicenseId");
+                    b.Property<int>("LicenseManagerId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("LicenseId");
+                    b.HasKey("LicenseId", "LicenseManagerId");
+
+                    b.HasIndex("LicenseManagerId");
 
                     b.ToTable("LicenseManagerLicenses");
                 });
@@ -337,7 +337,7 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.HasOne("Core.Entities.News", "News")
                         .WithMany("Comments")
-                        .HasForeignKey("NewsPostId")
+                        .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -356,13 +356,13 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManagerLicense", b =>
                 {
                     b.HasOne("Core.Entities.licenseEntity.License", "License")
-                        .WithMany()
+                        .WithMany("LicenseManagerLicenses")
                         .HasForeignKey("LicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.licenseEntity.LicenseManager", "LicenseManager")
-                        .WithMany()
+                        .WithMany("LicenseManagerLicenses")
                         .HasForeignKey("LicenseManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -375,6 +375,16 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.News", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.License", b =>
+                {
+                    b.Navigation("LicenseManagerLicenses");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManager", b =>
+                {
+                    b.Navigation("LicenseManagerLicenses");
                 });
 #pragma warning restore 612, 618
         }

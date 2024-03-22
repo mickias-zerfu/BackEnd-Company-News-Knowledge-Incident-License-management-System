@@ -145,14 +145,14 @@ namespace Infrastructure.Data.Migrations
                     Text = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    NewsPostId = table.Column<int>(type: "INTEGER", nullable: false)
+                    NewsId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_News_NewsPostId",
-                        column: x => x.NewsPostId,
+                        name: "FK_Comments_News_NewsId",
+                        column: x => x.NewsId,
                         principalTable: "News",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -195,7 +195,7 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LicenseManagerLicenses", x => new { x.LicenseManagerId, x.LicenseId });
+                    table.PrimaryKey("PK_LicenseManagerLicenses", x => new { x.LicenseId, x.LicenseManagerId });
                     table.ForeignKey(
                         name: "FK_LicenseManagerLicenses_LicenseManagers_LicenseManagerId",
                         column: x => x.LicenseManagerId,
@@ -211,14 +211,14 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_NewsPostId",
+                name: "IX_Comments_NewsId",
                 table: "Comments",
-                column: "NewsPostId");
+                column: "NewsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LicenseManagerLicenses_LicenseId",
+                name: "IX_LicenseManagerLicenses_LicenseManagerId",
                 table: "LicenseManagerLicenses",
-                column: "LicenseId");
+                column: "LicenseManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Licenses_SoftwareProductId",
