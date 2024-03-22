@@ -4,6 +4,7 @@ using Core.Interfaces.licenses;
 using FileUpload.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Licenses;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

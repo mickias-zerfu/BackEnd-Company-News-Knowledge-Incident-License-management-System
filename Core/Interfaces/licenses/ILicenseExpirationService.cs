@@ -12,7 +12,7 @@ namespace Core.Interfaces.licenses
     }
     public interface IEmailNotificationService
     {
-        Task SendLicenseExpirationEmailAsync(SoftwareProduct softwareProduct, DateTime expirationDate, string notificationType);
+        Task SendLicenseExpirationEmailAsync(SoftwareProduct softwareProduct, ICollection<LicenseManager> licenseManager, DateTime expirationDate, int daysUntilExpiration);
     }
 
 }

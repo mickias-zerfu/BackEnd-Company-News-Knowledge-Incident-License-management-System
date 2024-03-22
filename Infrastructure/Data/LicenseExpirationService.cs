@@ -1,68 +1,70 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Core.Entities;
 using Core.Interfaces.licenses;
+using System.Net.Mail;
+using System.Net;
+using Core.Entities.licenseEntity;
+using Infrastructure.Data;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Services
 {
-
-    // Implementation of license expiration tracking service
     public class LicenseExpirationService : ILicenseExpirationService
     {
+        private readonly StoreContext _context;
         private readonly ILicenseRepository _licenseRepository;
         private readonly ISoftwareProductRepository _softwareProductRepository;
         private readonly IEmailNotificationService _emailNotificationService;
 
-        public LicenseExpirationService(ILicenseRepository licenseRepository, ISoftwareProductRepository softwareProductRepository, IEmailNotificationService emailNotificationService)
+        public LicenseExpirationService(ILicenseRepository licenseRepository,
+            ISoftwareProductRepository softwareProductRepository,
+            IEmailNotificationService emailNotificationService, StoreContext context)
         {
-            _licenseRepository = licenseRepository;
-            _emailNotificationService = emailNotificationService;
+            _context = context;
+            _licenseRepository = licenseRepository ?? throw new ArgumentNullException(nameof(licenseRepository));
+            _softwareProductRepository = softwareProductRepository ?? throw new ArgumentNullException(nameof(softwareProductRepository));
+            _emailNotificationService = emailNotificationService ?? throw new ArgumentNullException(nameof(emailNotificationService));
         }
-
-
         public async Task CheckLicenseExpirationAsync()
         {
-            // Retrieve all licenses
-            var licenses = await _licenseRepository.GetAllLicensesAsync();
-            var softwareProductIds = licenses.Select(l => l.SoftwareProductId).Distinct().ToList();
+            // Ensure that dependencies are not null
+            if (_licenseRepository == null || _softwareProductRepository == null || _emailNotificationService == null)
+            {
+                throw new InvalidOperationException("Dependencies are not properly initialized.");
+            }
 
-            // Check expiration date for each license
+            var licenses = await _licenseRepository.GetAllLicensesAsync();
+
             foreach (var license in licenses)
             {
-                var daysUntilExpiration = (license.ExpirationDate - DateTime.Today).Days; 
-                var softwareProduct = await _softwareProductRepository.GetSoftwareProductByIdAsync(license.SoftwareProductId);
-                // Console.WriteLine($"License for {softwareProduct.Name} expires in {daysUntilExpiration} days");
+                if (license == null || license.ExpirationDate == null)
+                { 
+                    continue;
+                }
 
-                // Send notifications based on time frames
-                if (daysUntilExpiration == 90)
+                var daysUntilExpiration = (license.ExpirationDate - DateTime.Today).Days;
+                var softwareProduct = license.SoftwareProduct;
+                var managers = license.AssignedManagers;
+                //await _softwareProductRepository.GetSoftwareProductByIdAsync(license.SoftwareProductId);
+
+                // Ensure that softwareProduct is not null before proceeding
+                if (softwareProduct == null)
                 {
-                    await _emailNotificationService.SendLicenseExpirationEmailAsync(softwareProduct, license.ExpirationDate, "Three months remaining before expiration");
+                    // Log or handle the case where softwareProduct is null
+                    continue;
+                } 
+                if (_emailNotificationService != null)
+                { 
+                    await _emailNotificationService.SendLicenseExpirationEmailAsync( softwareProduct,managers,license.ExpirationDate, daysUntilExpiration);
                 }
-                else if (daysUntilExpiration == 30)
+                else
                 {
-                    await _emailNotificationService.SendLicenseExpirationEmailAsync(softwareProduct, license.ExpirationDate, "One month remaining before expiration");
-                }
-                else if (daysUntilExpiration == 14)
-                {
-                    // Send daily reminders for two weeks remaining before expiration
-                    for (int i = 0; i < 14; i++)
-                    {
-                        await _emailNotificationService.SendLicenseExpirationEmailAsync(softwareProduct, license.ExpirationDate, "Two weeks remaining before expiration");
-                    }
-                }
-                else if (daysUntilExpiration == 7)
-                {
-                    await _emailNotificationService.SendLicenseExpirationEmailAsync(softwareProduct, license.ExpirationDate, "One week remaining before expiration");
-                }
-                else if (daysUntilExpiration == 3)
-                {
-                    await _emailNotificationService.SendLicenseExpirationEmailAsync(softwareProduct, license.ExpirationDate, "Three days remaining before expiration");
+                    // Log or handle the case where emailNotificationService is null
                 }
             }
         }
-
-    }
-
+ 
+     }
 }
