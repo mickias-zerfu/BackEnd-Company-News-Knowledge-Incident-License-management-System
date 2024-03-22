@@ -14,7 +14,9 @@ namespace Core.Entities.licenseEntity
         public DateTime RegistrationDate { get; set; }
         public string PhoneNumber { get; set; }
         public string ProfilePictureUrl { get; set; }
-        public ICollection<License>? Licenses { get; set; }
+
+        public ICollection<LicenseManagerLicense>? LicenseManagerLicenses { get; set; }
+
     }
 
 }

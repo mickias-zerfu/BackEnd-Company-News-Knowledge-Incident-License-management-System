@@ -24,11 +24,10 @@ namespace Core.Interfaces
 
     public interface ILicenseManagerRepository
     {
-        Task<LicenseManager> GetLicenseManagerByIdAsync(int id);
-        Task<IReadOnlyList<LicenseManager>> GetAllLicenseManagersAsync();
-
+        Task<LicenseManagerDto> GetLicenseManagerByIdAsync(int id);
+        Task<IReadOnlyList<LicenseManagerDto>> GetAllLicenseManagersAsync();
         Task<LicenseManager> CreateLicenseManagerAsync(LicenseManager licenseManager);
-        Task<LicenseManager> AssignLicensesAsync(int licenseId, int[] managerIds);
+        Task<LicenseManager> AssignLicensesAsyncToManager(int ManagerId, int[] LicenseIds);
         Task<LicenseManager> UpdateLicenseManagerAsync(LicenseManager licenseManager);
         Task DeleteLicenseManagerAsync(int id);
         // Add other methods as needed

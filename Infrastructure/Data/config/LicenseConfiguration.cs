@@ -28,23 +28,9 @@ namespace Infrastructure.Data.config
             builder.HasOne<SoftwareProduct>()
                 .WithMany()
                 .HasForeignKey(l => l.SoftwareProductId)
-                .IsRequired(); 
+                .IsRequired();
             // Relationship
-            builder.HasMany(l => l.LicenseManagers)
-                .WithMany(lm => lm.Licenses)
-                .UsingEntity<LicenseManagerLicense>(
-                    j => j.HasOne(lml => lml.LicenseManager)
-                        .WithMany()
-                        .HasForeignKey(lml => lml.LicenseManagerId),
-                    j => j.HasOne(lml => lml.License)
-                        .WithMany()
-                        .HasForeignKey(lml => lml.LicenseId),
-                    j =>
-                    {
-                        j.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId });
-                    });
-        
-        
+
         }
     }
 
@@ -81,29 +67,25 @@ namespace Infrastructure.Data.config
             builder.Property(u => u.IsActive).IsRequired();
             builder.Property(u => u.RegistrationDate).IsRequired();
             builder.Property(u => u.PhoneNumber).IsRequired();
-            builder.Property(u => u.ProfilePictureUrl).IsRequired(false);;
+            builder.Property(u => u.ProfilePictureUrl).IsRequired(false); ;
 
-            builder.HasMany(lm => lm.Licenses)
-            .WithMany(l => l.LicenseManagers)
-            .UsingEntity<LicenseManagerLicense>(
-                j => j.HasOne(lml => lml.License)
-                    .WithMany()
-                    .HasForeignKey(lml => lml.LicenseId),
-                j => j.HasOne(lml => lml.LicenseManager)
-                    .WithMany()
-                    .HasForeignKey(lml => lml.LicenseManagerId),
-                j =>
-                {
-                    j.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId });
-                });                       
+
         }
     }
     public class LicenseManagerLicenseConfiguration : IEntityTypeConfiguration<LicenseManagerLicense>
     {
         public void Configure(EntityTypeBuilder<LicenseManagerLicense> builder)
-        {
+        { 
+            builder.HasKey(lm => new { lm.LicenseId, lm.LicenseManagerId });
 
-            builder.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId }); 
+            builder.HasOne(lm => lm.License)
+                .WithMany(l => l.LicenseManagerLicenses)
+                .HasForeignKey(lm => lm.LicenseId);
+
+            builder.HasOne(lm => lm.LicenseManager)
+                .WithMany(m => m.LicenseManagerLicenses)
+                .HasForeignKey(lm => lm.LicenseManagerId);
+
         }
     }
 }

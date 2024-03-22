@@ -43,7 +43,7 @@ namespace API.Controllers.Licenses
         [HttpPut("{managerId}/licenses")]
         public async Task<IActionResult> AssignLicensesToManager(int managerId, [FromBody] int[] licenseIds)
         {
-            var updatedManager = await _licenseManagerRepository.AssignLicensesAsync(managerId, licenseIds);
+            var updatedManager = await _licenseManagerRepository.AssignLicensesAsyncToManager(managerId, licenseIds);
             if (updatedManager == null)
             {
                 return NotFound();

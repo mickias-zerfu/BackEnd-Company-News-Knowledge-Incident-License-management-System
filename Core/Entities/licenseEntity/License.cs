@@ -18,7 +18,8 @@ namespace Core.Entities.licenseEntity
 
         // EF Relation
         public int SoftwareProductId { get; set; }
-        public ICollection<LicenseManager>? LicenseManagers { get; set; }
+        public ICollection<LicenseManagerLicense>? LicenseManagerLicenses { get; set; }
+
     }
 
     public enum LicenseType

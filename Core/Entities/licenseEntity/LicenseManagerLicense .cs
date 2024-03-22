@@ -7,5 +7,6 @@ namespace Core.Entities.licenseEntity
 
         public int LicenseManagerId { get; set; }
         public LicenseManager LicenseManager { get; set; }
+
     }
 }
