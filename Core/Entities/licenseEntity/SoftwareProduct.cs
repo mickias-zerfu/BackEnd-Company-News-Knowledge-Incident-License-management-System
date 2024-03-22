@@ -1,5 +1,7 @@
 
 
+using System.Text.Json.Serialization;
+
 namespace Core.Entities.licenseEntity
 {
   public class SoftwareProduct
@@ -10,8 +12,7 @@ namespace Core.Entities.licenseEntity
     public string Description { get; set; }
     public string Vendor { get; set; }
     public DateTime ReleaseDate { get; set; } 
-    // EF Relation
-    public ICollection<License> Licenses { get; set; }
+    // EF Relation 
 }
 
 }

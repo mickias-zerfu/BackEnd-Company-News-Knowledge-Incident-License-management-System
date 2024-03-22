@@ -1,9 +1,9 @@
 using Core.Entities.licenseEntity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders; 
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.config
-{ 
+{
     public class LicenseConfiguration : IEntityTypeConfiguration<License>
     {
         public void Configure(EntityTypeBuilder<License> builder)
@@ -20,11 +20,31 @@ namespace Infrastructure.Data.config
             builder.Property(l => l.Activated).IsRequired();
             builder.Property(l => l.LicenseType).IsRequired();
 
-            // Relationships
-            builder.HasOne(l => l.SoftwareProduct)
-                .WithMany(sp => sp.Licenses)
-                .HasForeignKey(l => l.SoftwareProductId)
+            // Configure the SoftwareProductId property
+            builder.Property(l => l.SoftwareProductId)
                 .IsRequired();
+
+            // Relationships
+            builder.HasOne<SoftwareProduct>()
+                .WithMany()
+                .HasForeignKey(l => l.SoftwareProductId)
+                .IsRequired(); 
+            // Relationship
+            builder.HasMany(l => l.LicenseManagers)
+                .WithMany(lm => lm.Licenses)
+                .UsingEntity<LicenseManagerLicense>(
+                    j => j.HasOne(lml => lml.LicenseManager)
+                        .WithMany()
+                        .HasForeignKey(lml => lml.LicenseManagerId),
+                    j => j.HasOne(lml => lml.License)
+                        .WithMany()
+                        .HasForeignKey(lml => lml.LicenseId),
+                    j =>
+                    {
+                        j.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId });
+                    });
+        
+        
         }
     }
 
@@ -40,13 +60,9 @@ namespace Infrastructure.Data.config
             builder.Property(sp => sp.Version).IsRequired();
             builder.Property(sp => sp.Description).IsRequired();
             builder.Property(sp => sp.Vendor).IsRequired();
-            builder.Property(sp => sp.ReleaseDate).IsRequired(); 
+            builder.Property(sp => sp.ReleaseDate).IsRequired();
 
-            // Relationships
-            builder.HasMany(sp => sp.Licenses)
-                .WithOne(l => l.SoftwareProduct)
-                .HasForeignKey(l => l.SoftwareProductId)
-                .IsRequired();
+            // Relationships 
         }
     }
 
@@ -65,13 +81,29 @@ namespace Infrastructure.Data.config
             builder.Property(u => u.IsActive).IsRequired();
             builder.Property(u => u.RegistrationDate).IsRequired();
             builder.Property(u => u.PhoneNumber).IsRequired();
-            builder.Property(u => u.ProfilePictureUrl);
+            builder.Property(u => u.ProfilePictureUrl).IsRequired(false);;
 
-            // Relationships
-            builder.HasOne(u => u.License)
-                .WithMany()
-                .HasForeignKey(u => u.LicenseId)
-                .IsRequired();
+            builder.HasMany(lm => lm.Licenses)
+            .WithMany(l => l.LicenseManagers)
+            .UsingEntity<LicenseManagerLicense>(
+                j => j.HasOne(lml => lml.License)
+                    .WithMany()
+                    .HasForeignKey(lml => lml.LicenseId),
+                j => j.HasOne(lml => lml.LicenseManager)
+                    .WithMany()
+                    .HasForeignKey(lml => lml.LicenseManagerId),
+                j =>
+                {
+                    j.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId });
+                });                       
+        }
+    }
+    public class LicenseManagerLicenseConfiguration : IEntityTypeConfiguration<LicenseManagerLicense>
+    {
+        public void Configure(EntityTypeBuilder<LicenseManagerLicense> builder)
+        {
+
+            builder.HasKey(lml => new { lml.LicenseManagerId, lml.LicenseId }); 
         }
     }
 }

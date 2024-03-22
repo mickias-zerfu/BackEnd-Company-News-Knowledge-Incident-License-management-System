@@ -5,7 +5,9 @@
       "StatusAction": ["Investigating", "Identified", "Resolved"],
       "QuickReviews": ["Check network cables", "Restart routers", "Contact ISP"],
       "SolutionToIncident": ["Reconfigure network settings", "Replace faulty hardware"],
-      "Remark": "Issue resolved after replacing a faulty switch."
+      "Remark": "Issue resolved after replacing a faulty switch.",
+      "Created_at": "2022-01-15T10:00:00",
+      "Updated_at": "2022-01-15T10:00:00"
     },
     {
       "IncidentTitle": "Application Crash",
@@ -13,7 +15,9 @@
       "StatusAction": ["Investigating", "Identified"],
       "QuickReviews": ["Check error logs", "Analyze crash dumps"],
       "SolutionToIncident": ["Apply software patch", "Optimize code"],
-      "Remark": "Pending resolution, development team actively working on bug fixes."
+      "Remark": "Pending resolution, development team actively working on bug fixes.",
+      "Created_at": "2022-01-15T10:00:00",
+      "Updated_at": "2022-01-15T10:00:00"
     },
     {
       "IncidentTitle": "Data Loss",
@@ -21,7 +25,9 @@
       "StatusAction": ["Investigating", "Identified", "Resolved"],
       "QuickReviews": ["Restore from backups", "Perform data recovery"],
       "SolutionToIncident": ["Implement redundancy measures", "Regularly backup data"],
-      "Remark": "Data successfully restored from backup, additional safeguards implemented."
+      "Remark": "Data successfully restored from backup, additional safeguards implemented.",
+      "Created_at": "2022-01-15T10:00:00",
+      "Updated_at": "2022-01-15T10:00:00"
     },
     {
       "IncidentTitle": "Email Delivery Delay",
@@ -29,6 +35,8 @@
       "StatusAction": ["Investigating"],
       "QuickReviews": ["Check mail server logs", "Monitor network traffic"],
       "SolutionToIncident": ["Optimize mail server configurations", "Contact email service provider"],
-      "Remark": "Issue still under investigation, email team actively working on a resolution."
+      "Remark": "Issue still under investigation, email team actively working on a resolution.",
+      "Created_at": "2022-01-15T10:00:00",
+      "Updated_at": "2022-01-15T10:00:00"
     }
   ]

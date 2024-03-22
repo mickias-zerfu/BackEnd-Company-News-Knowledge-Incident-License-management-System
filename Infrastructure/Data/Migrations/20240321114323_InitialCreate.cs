@@ -37,7 +37,9 @@ namespace Infrastructure.Data.Migrations
                     StatusAction = table.Column<string>(type: "TEXT", nullable: true),
                     QuickReviews = table.Column<string>(type: "TEXT", nullable: true),
                     SolutionToIncident = table.Column<string>(type: "TEXT", nullable: true),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true)
+                    Remark = table.Column<string>(type: "TEXT", nullable: true),
+                    Created_at = table.Column<string>(type: "TEXT", nullable: true),
+                    Updated_at = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,6 +61,26 @@ namespace Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_KnowledgeBases", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LicenseManagers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    ProfilePictureUrl = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LicenseManagers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,26 +187,23 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LicenseManagers",
+                name: "LicenseManagerLicenses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    Role = table.Column<string>(type: "TEXT", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    ProfilePictureUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    LicenseId = table.Column<int>(type: "INTEGER", nullable: false)
+                    LicenseId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LicenseManagerId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LicenseManagers", x => x.Id);
+                    table.PrimaryKey("PK_LicenseManagerLicenses", x => new { x.LicenseManagerId, x.LicenseId });
                     table.ForeignKey(
-                        name: "FK_LicenseManagers_Licenses_LicenseId",
+                        name: "FK_LicenseManagerLicenses_LicenseManagers_LicenseManagerId",
+                        column: x => x.LicenseManagerId,
+                        principalTable: "LicenseManagers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LicenseManagerLicenses_Licenses_LicenseId",
                         column: x => x.LicenseId,
                         principalTable: "Licenses",
                         principalColumn: "Id",
@@ -197,8 +216,8 @@ namespace Infrastructure.Data.Migrations
                 column: "NewsPostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LicenseManagers_LicenseId",
-                table: "LicenseManagers",
+                name: "IX_LicenseManagerLicenses_LicenseId",
+                table: "LicenseManagerLicenses",
                 column: "LicenseId");
 
             migrationBuilder.CreateIndex(
@@ -223,13 +242,16 @@ namespace Infrastructure.Data.Migrations
                 name: "KnowledgeBases");
 
             migrationBuilder.DropTable(
-                name: "LicenseManagers");
+                name: "LicenseManagerLicenses");
 
             migrationBuilder.DropTable(
                 name: "SharedResources");
 
             migrationBuilder.DropTable(
                 name: "News");
+
+            migrationBuilder.DropTable(
+                name: "LicenseManagers");
 
             migrationBuilder.DropTable(
                 name: "Licenses");

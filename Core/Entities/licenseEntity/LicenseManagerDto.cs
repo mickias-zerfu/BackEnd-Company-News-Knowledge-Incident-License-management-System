@@ -1,10 +1,12 @@
-
-using System.Text.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Entities.licenseEntity
 {
-    public class LicenseManager
-    {
+    public class LicenseManagerDto
+    {        
         public int Id { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
@@ -14,13 +16,7 @@ namespace Core.Entities.licenseEntity
         public DateTime RegistrationDate { get; set; }
         public string PhoneNumber { get; set; }
         public string ProfilePictureUrl { get; set; }
-        public ICollection<License>? Licenses { get; set; }
+        
+        public ICollection<License> AssignedLicenses { get; set; }
     }
-
 }
-
-// EF Relation
-// public int LicenseId { get; set; }
-// public License License { get; set; }
-
-// public ICollection<LicenseManagerLicense> Licenses { get; set; }

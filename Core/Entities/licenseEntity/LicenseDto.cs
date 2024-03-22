@@ -1,9 +1,11 @@
-
-using System.Text.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Entities.licenseEntity
 {
-    public class License
+    public class LicenseDto
     {
         public int Id { get; set; }
         public string IssuedTo { get; set; }
@@ -15,18 +17,8 @@ namespace Core.Entities.licenseEntity
         public bool Activated { get; set; }
         public LicenseType LicenseType { get; set; }
         public string Notes { get; set; }
-
-        // EF Relation
         public int SoftwareProductId { get; set; }
-        public ICollection<LicenseManager>? LicenseManagers { get; set; }
+        public SoftwareProduct SoftwareProduct { get; set; }
+        public ICollection<LicenseManager> AssignedManagers { get; set; }
     }
-
-    public enum LicenseType
-    {
-        SingleUserSubscription,
-        MultiUserSubscription,
-        SingleUserLifeTimeAccess,
-        MultiUserLifeTimeAccess
-    }
-
 }

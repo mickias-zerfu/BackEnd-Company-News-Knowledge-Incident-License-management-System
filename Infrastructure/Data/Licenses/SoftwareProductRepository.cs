@@ -1,7 +1,7 @@
- 
+
 using Core.Entities.licenseEntity;
-using Core.Interfaces; 
-using Microsoft.EntityFrameworkCore; 
+using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Licenses
 {
@@ -17,7 +17,6 @@ namespace Infrastructure.Data.Licenses
         public async Task<SoftwareProduct> GetSoftwareProductByIdAsync(int id)
         {
             return await _context.SoftwareProducts
-                .Include(sp => sp.Licenses) // Include related licenses
                 .FirstOrDefaultAsync(sp => sp.Id == id);
         }
 
@@ -33,11 +32,38 @@ namespace Infrastructure.Data.Licenses
             return softwareProduct;
         }
 
-        public async Task<SoftwareProduct> UpdateSoftwareProductAsync(SoftwareProduct softwareProduct)
+        public async Task<SoftwareProduct> UpdateSoftwareProductAsync(int id, SoftwareProduct softwareProduct)
         {
-            _context.Entry(softwareProduct).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return softwareProduct;
+            try
+            {
+                if (softwareProduct == null)
+                {
+                    throw new ArgumentNullException(nameof(softwareProduct), "Software product is null.");
+                }
+
+                var existingSoftwareProduct = await _context.SoftwareProducts.FindAsync(id);
+                if (existingSoftwareProduct == null)
+                {
+                    // Software product with the specified ID not found
+                    return null;
+                }
+
+                // Update the existing software product properties
+                existingSoftwareProduct.Name = softwareProduct.Name ?? existingSoftwareProduct.Name;
+                existingSoftwareProduct.Version = softwareProduct.Version ?? existingSoftwareProduct.Version;
+                existingSoftwareProduct.Description = softwareProduct.Description ?? existingSoftwareProduct.Description;
+                existingSoftwareProduct.Vendor = softwareProduct.Vendor ?? existingSoftwareProduct.Vendor;
+                existingSoftwareProduct.ReleaseDate = softwareProduct.ReleaseDate != DateTime.MinValue ? softwareProduct.ReleaseDate : existingSoftwareProduct.ReleaseDate;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return existingSoftwareProduct;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task DeleteSoftwareProductAsync(int id)

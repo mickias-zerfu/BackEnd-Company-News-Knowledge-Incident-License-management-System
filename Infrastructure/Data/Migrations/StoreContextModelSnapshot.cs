@@ -76,6 +76,9 @@ namespace Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Created_at")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("IncidentDescription")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -94,6 +97,9 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StatusAction")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Updated_at")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -260,15 +266,11 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("LicenseId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RegistrationDate")
@@ -280,9 +282,22 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("LicenseManagers");
+                });
+
+            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManagerLicense", b =>
+                {
+                    b.Property<int>("LicenseManagerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LicenseId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("LicenseManagerId", "LicenseId");
+
                     b.HasIndex("LicenseId");
 
-                    b.ToTable("LicenseManagers");
+                    b.ToTable("LicenseManagerLicenses");
                 });
 
             modelBuilder.Entity("Core.Entities.licenseEntity.SoftwareProduct", b =>
@@ -328,16 +343,14 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.licenseEntity.License", b =>
                 {
-                    b.HasOne("Core.Entities.licenseEntity.SoftwareProduct", "SoftwareProduct")
-                        .WithMany("Licenses")
+                    b.HasOne("Core.Entities.licenseEntity.SoftwareProduct", null)
+                        .WithMany()
                         .HasForeignKey("SoftwareProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("SoftwareProduct");
                 });
 
-            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManager", b =>
+            modelBuilder.Entity("Core.Entities.licenseEntity.LicenseManagerLicense", b =>
                 {
                     b.HasOne("Core.Entities.licenseEntity.License", "License")
                         .WithMany()
@@ -345,17 +358,20 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.licenseEntity.LicenseManager", "LicenseManager")
+                        .WithMany()
+                        .HasForeignKey("LicenseManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("License");
+
+                    b.Navigation("LicenseManager");
                 });
 
             modelBuilder.Entity("Core.Entities.News", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("Core.Entities.licenseEntity.SoftwareProduct", b =>
-                {
-                    b.Navigation("Licenses");
                 });
 #pragma warning restore 612, 618
         }

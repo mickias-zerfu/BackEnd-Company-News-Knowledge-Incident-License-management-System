@@ -13,5 +13,7 @@ namespace Core.Entities
         public string[]? QuickReviews { get; set; }
         public string[]? SolutionToIncident { get; set; }
         public string? Remark { get; set; }
+        public string? Created_at { get; set; }
+        public string? Updated_at { get; set; }
     }
 }

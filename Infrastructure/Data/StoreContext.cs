@@ -1,6 +1,6 @@
 
 using System.Linq;
-using System.Reflection; 
+using System.Reflection;
 using Core.Entities;
 using Core.Entities.licenseEntity;
 using Infrastructure.Data.config;
@@ -21,10 +21,11 @@ namespace Infrastructure.Data
         public DbSet<FileDetails> FileDetails { get; set; }
         public DbSet<Comment> Comments { get; internal set; }
 
-        
+
         public DbSet<License> Licenses { get; set; }
         public DbSet<SoftwareProduct> SoftwareProducts { get; set; }
         public DbSet<LicenseManager> LicenseManagers { get; set; }
+        public DbSet<LicenseManagerLicense> LicenseManagerLicenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,11 +38,12 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new SharedResourcesConfiguration());
             modelBuilder.ApplyConfiguration(new FileConfiguration());
 
-            
+
             modelBuilder.ApplyConfiguration(new LicenseConfiguration());
             modelBuilder.ApplyConfiguration(new SoftwareProductConfiguration());
             modelBuilder.ApplyConfiguration(new LicenseManagerConfiguration());
-            
+            modelBuilder.ApplyConfiguration(new LicenseManagerLicenseConfiguration());
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
