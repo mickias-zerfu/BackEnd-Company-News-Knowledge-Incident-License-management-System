@@ -1,4 +1,6 @@
+using System.Text.Json.Serialization;
 using Core.Interfaces;
+using Core.Interfaces.licenses;
 using FileUpload.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Licenses;
@@ -8,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
     builder.Configuration.GetConnectionString("DefaultConnection")
@@ -25,6 +30,8 @@ builder.Services.AddScoped < IFileService, FileService > ();
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
 builder.Services.AddScoped<ISoftwareProductRepository, SoftwareProductRepository>();
 builder.Services.AddScoped<ILicenseManagerRepository, LicenseManagerRepository>();
+builder.Services.AddScoped<ILicenseExpirationService, LicenseExpirationService>();
+builder.Services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 
 builder.Services.AddCors(options =>
 {

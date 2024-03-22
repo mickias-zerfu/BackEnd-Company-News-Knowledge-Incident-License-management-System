@@ -1,7 +1,7 @@
 using Core.Entities;
 using Core.Entities.licenseEntity;
 using Core.Interfaces;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Licenses
 {
@@ -40,7 +40,17 @@ namespace API.Controllers.Licenses
             var createdLicenseManager = await _licenseManagerRepository.CreateLicenseManagerAsync(licenseManager);
             return CreatedAtAction(nameof(GetLicenseManagerById), new { id = createdLicenseManager.Id }, createdLicenseManager);
         }
+        [HttpPut("{managerId}/licenses")]
+        public async Task<IActionResult> AssignLicensesToManager(int managerId, [FromBody] int[] licenseIds)
+        {
+            var updatedManager = await _licenseManagerRepository.AssignLicensesAsync(managerId, licenseIds);
+            if (updatedManager == null)
+            {
+                return NotFound();
+            }
 
+            return Ok(updatedManager);
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateLicenseManager(int id, [FromBody] LicenseManager licenseManager)
         {

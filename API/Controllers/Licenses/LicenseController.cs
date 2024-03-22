@@ -42,7 +42,17 @@ namespace API.Controllers.Licenses
             var createdLicense = await _licenseRepository.CreateLicenseAsync(license);
             return CreatedAtAction(nameof(GetLicenseById), new { id = createdLicense.Id }, createdLicense);
         }
+        [HttpPut("{licenseId}/managers")]
+        public async Task<IActionResult> AssignManagersToLicense(int licenseId, [FromBody] int[] managerIds)
+        {
+            var updatedLicense = await _licenseRepository.AssignManagersToLicenseAsync(licenseId, managerIds);
+            if (updatedLicense == null)
+            {
+                return NotFound();
+            }
 
+            return Ok(updatedLicense);
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateLicense(int id, [FromBody] License license)
         {

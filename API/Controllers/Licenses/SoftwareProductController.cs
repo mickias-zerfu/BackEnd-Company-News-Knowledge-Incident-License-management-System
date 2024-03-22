@@ -47,19 +47,31 @@ namespace API.Controllers.Licenses
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSoftwareProduct(int id, [FromBody] SoftwareProduct softwareProduct)
         {
-            if (id != softwareProduct.Id)
+            try
             {
-                return BadRequest("Software product ID mismatch");
-            }
+                if (id != softwareProduct.Id)
+                {
+                    return BadRequest("Software product ID mismatch");
+                }
 
-            var existingSoftwareProduct = await _softwareProductRepository.GetSoftwareProductByIdAsync(id);
-            if (existingSoftwareProduct == null)
+                var existingSoftwareProduct = await _softwareProductRepository.GetSoftwareProductByIdAsync(id);
+                if (existingSoftwareProduct == null)
+                {
+                    return NotFound();
+                }
+
+                var updatedSoftwareProduct = await _softwareProductRepository.UpdateSoftwareProductAsync(id, softwareProduct);
+                if (updatedSoftwareProduct == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update software product.");
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while updating the software product: {ex.Message}");
             }
-
-            await _softwareProductRepository.UpdateSoftwareProductAsync(softwareProduct);
-            return NoContent();
         }
 
         [HttpDelete("{id}")]
