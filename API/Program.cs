@@ -6,8 +6,15 @@ using Infrastructure.Data;
 using Infrastructure.Data.Licenses;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEntityFrameworkMySQL()
+                .AddDbContext<StoreContext>(options =>
+                {
+                    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+                });
+
 
 // Add services to the container.
 
@@ -15,10 +22,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+// builder.Services.AddEntityFrameworkMySQL()
+//                 .AddDbContext<StoreContext>(options =>options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"))
+//                 );
 
-builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
-    builder.Configuration.GetConnectionString("DefaultConnection")
-));
+// builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
+//     builder.Configuration.GetConnectionString("DefaultConnection")
+// ));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +36,7 @@ builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
 builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
 builder.Services.AddScoped<ISharedResourceRepository, SharedResourceRepository>();
-builder.Services.AddScoped < IFileService, FileService > ();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
 builder.Services.AddScoped<ISoftwareProductRepository, SoftwareProductRepository>();
