@@ -88,7 +88,13 @@ namespace API.Controllers.Licenses
         public async Task<IActionResult> CheckLicenseExpiration()
         {
             await _licenseExpirationService.CheckLicenseExpirationAsync();
-            return Ok("License expiration check completed successfully.");
+            return Ok(new { message = "License expiration check completed successfully." });
+        }
+        [HttpPost("checkexpiration/{licenseId}")]
+        public async Task<IActionResult> CheckLicenseExpirationPerId(int licenseId)
+        {
+            await _licenseExpirationService.CheckLicenseExpirationAsync();
+            return Ok(new { message = "License expiration check completed successfully." });
         }
     }
 }
