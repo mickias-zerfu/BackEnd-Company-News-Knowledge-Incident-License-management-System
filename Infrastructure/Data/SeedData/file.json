@@ -1,0 +1,20 @@
+[
+    {
+      "FileTitle": "Sample File 1",
+      "FileDescription": "This is a sample file",
+      "FileName": "sample_file1.pdf",
+      "FileType": "pdf",
+      "FileContent": "SGVsbG8gd29ybGQh", 
+      "Created_at": "2022-01-01T10:00:00",
+      "Updated_at": "2022-01-01T12:00:00"
+    },
+    {
+      "FileTitle": "Sample File 2",
+      "FileDescription": "This is another sample file",
+      "FileName": "sample_file2.jpg",
+      "FileType": "jpg",
+      "FileContent": "V29ybGQhIQ==", 
+      "Created_at": "2022-02-01T09:30:00",
+      "Updated_at": "2022-02-01T11:45:00"
+    }
+  ]

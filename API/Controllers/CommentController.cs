@@ -1,74 +1,77 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
     public class CommentController : ControllerBase
     {
-        private readonly INewsRepository _repo;
+        private readonly INewsRepository _newsRepository;
 
-        public CommentController(INewsRepository repo)
+        public CommentController(INewsRepository newsRepository)
         {
-            _repo = repo;
+            _newsRepository = newsRepository;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetCommentById(int id)
+        [HttpGet("{newsId}/comments")]
+        public async Task<ActionResult<IReadOnlyList<Comment>>> GetCommentsByNewsIdAsync(int newsId)
         {
-            var comment = await _repo.GetCommentByIdAsync(id);
-            if (comment == null)
+            var news = await _newsRepository.GetNewsByIdAsync(newsId);
+            if (news == null)
             {
                 return NotFound();
             }
-            return Ok(comment);
+
+            return Ok(news.Comments);
         }
 
-        // [HttpGet("news/{newsId}")]
-        // public async Task<ActionResult<IReadOnlyList<Comment>>> GetCommentsForNews(int newsId)
-        // {
-        //     var comments = await _repo.GetCommentsForNewsAsync(newsId);
-        //     return Ok(comments);
-        // }
-
-        [HttpPost]
-        public async Task<ActionResult<Comment>> CreateComment(Comment comment)
+        [HttpPost("{newsId}/comments")]
+        public async Task<ActionResult<Comment>> CreateCommentAsync(int newsId, Comment comment)
         {
-            var createdComment = await _repo.CreateCommentAsync(comment);
-            return CreatedAtAction(nameof(GetCommentById), new { id = createdComment.Id }, createdComment);
+            var news = await _newsRepository.GetNewsByIdAsync(newsId);
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            comment.NewsId = newsId;
+            var createdComment = await _newsRepository.CreateCommentAsync(newsId, comment);
+            return createdComment;
+            
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Comment>> UpdateComment(int id, Comment comment)
+        [HttpPut("comments/{id}")]
+        public async Task<IActionResult> UpdateCommentAsync(int id, Comment comment)
         {
             if (id != comment.Id)
             {
-                return BadRequest();
+                return BadRequest("Comment ID mismatch");
             }
 
-            var existingComment = await _repo.GetCommentByIdAsync(id);
+            var existingComment = await _newsRepository.GetCommentByIdAsync(id);
             if (existingComment == null)
             {
                 return NotFound();
             }
 
-            var updatedComment = await _repo.UpdateCommentAsync(comment);
-            return Ok(updatedComment);
+            await _newsRepository.UpdateCommentAsync(comment);
+            return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment(int id)
+        [HttpDelete("comments/{id}")]
+        public async Task<IActionResult> DeleteCommentAsync(int id)
         {
-            var existingComment = await _repo.GetCommentByIdAsync(id);
+            var existingComment = await _newsRepository.GetCommentByIdAsync(id);
             if (existingComment == null)
             {
                 return NotFound();
             }
 
-            await _repo.DeleteCommentAsync(id);
+            await _newsRepository.DeleteCommentAsync(id);
             return NoContent();
         }
     }

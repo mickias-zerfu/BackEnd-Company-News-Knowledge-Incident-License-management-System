@@ -1,0 +1,28 @@
+[
+    {
+        "Id": 1,
+      "IssuedTo": "Company A",
+      "IssuedBy": "Vendor A",
+      "CreationDate": "2024-03-25T00:00:00",
+      "ActivationDate": "2024-03-25T00:00:00",
+      "ExpirationDate": "2025-03-25T00:00:00",
+      "MaxUsers": 10,
+      "Activated": true,
+      "LicenseType": 1,
+      "SoftwareProductId": 1,
+      "Notes": "NotesNotesNotesNotesNotesNotes"
+    },
+    {
+        "Id": 2,
+      "IssuedTo": "Company B",
+      "IssuedBy": "Vendor B",
+      "CreationDate": "2024-03-25T00:00:00",
+      "ActivationDate": "2024-03-25T00:00:00",
+      "ExpirationDate": "2026-03-25T00:00:00",
+      "MaxUsers": 20,
+      "Activated": true,
+      "LicenseType": 0,
+      "SoftwareProductId": 2,
+      "Notes": "NotesNotesNotesNotesNotesNotes"
+    }
+]

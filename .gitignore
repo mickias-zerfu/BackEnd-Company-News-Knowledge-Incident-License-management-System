@@ -1,0 +1,77 @@
+# .NET Core
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+*.lock
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio IntelliSense cache
+.vs/
+*.vscode/
+
+# Resharper cache, temp and backup files
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+
+# GhostDoc plugin setting file
+[Gg]host[Dd]oc[.]*
+
+# NuGet
+*.nuget.config
+*.lock
+packages/
+
+# Build Results of an ATL Project
+[Dd]ebug*/
+[Rr]elease*/
+dlldata.c
+
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio 2019
+/.vs
+/.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.docstates
+*.sln.ide

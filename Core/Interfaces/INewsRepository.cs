@@ -12,13 +12,14 @@ namespace Core.Interfaces
         Task<IReadOnlyList<News>> GetNewsAsync();
         Task<News> CreateNewsAsync(News news);
         Task<News> UpdateNewsAsync(News news);
-        Task DeleteNewsAsync(int id);
+        Task DeleteNewsAsync(int id); 
 
 
-
-        Task<IReadOnlyList<Comment>> GetCommentByIdAsync(int newsId); 
-        Task<Comment> CreateCommentAsync(Comment comment);
+        Task<Comment> GetCommentByIdAsync(int id);
+        Task<IReadOnlyList<Comment>> GetCommentsByNewsIdAsync(int newsId); 
+        Task<Comment> CreateCommentAsync(int newsId, Comment comment);
         Task<Comment> UpdateCommentAsync(Comment comment);
         Task DeleteCommentAsync(int id);
+ 
     }
 }

@@ -1,0 +1,26 @@
+[
+    {
+        "Id": 1,
+      "Email": "manager1@example.com",
+      "FirstName": "John",
+      "LastName": "Doe",
+      "Role": "Manager",
+      "IsActive": true,
+      "RegistrationDate": "2023-01-01T00:00:00",
+      "PhoneNumber": "1234567890",
+      "ProfilePictureUrl": "https://example.com/profile1.jpg",
+      "LicenseId": 1   
+    },
+    {
+        "Id": 2,
+      "Email": "manager2@example.com",
+      "FirstName": "Jane",
+      "LastName": "Smith",
+      "Role": "Manager",
+      "IsActive": true,
+      "RegistrationDate": "2023-01-01T00:00:00",
+      "PhoneNumber": "9876543210",
+      "ProfilePictureUrl": "https://example.com/profile2.jpg",
+      "LicenseId": 2   
+    }
+]

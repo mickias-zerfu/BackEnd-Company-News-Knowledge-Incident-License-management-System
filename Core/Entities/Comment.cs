@@ -8,13 +8,13 @@ namespace Core.Entities
 {
     public class Comment
     {
-
         public int Id { get; set; }
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int NewsPostId { get; set; } 
-        public News News { get; set; }
+        public int NewsId { get; set; }
+        [ForeignKey("NewsId")]
+        public News? News { get; set; }
 
     }
 }

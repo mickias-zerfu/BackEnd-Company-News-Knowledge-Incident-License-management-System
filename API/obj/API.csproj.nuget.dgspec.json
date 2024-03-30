@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj": {}
+    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj": {
+    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj",
+        "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,17 +46,17 @@
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[7.0.10, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[7.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[7.0.10, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -121,6 +121,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -181,9 +187,21 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[7.0.10, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
             }
           },
           "imports": [

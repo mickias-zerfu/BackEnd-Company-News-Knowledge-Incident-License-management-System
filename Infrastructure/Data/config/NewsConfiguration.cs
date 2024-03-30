@@ -17,12 +17,8 @@ namespace Infrastructure.Data.config
             builder.Property(n => n.Title).IsRequired().HasMaxLength(250);
             builder.Property(n => n.Content).IsRequired();
             builder.HasMany(n => n.Comments).WithOne(c => c.News)
-            .HasForeignKey(c => c.NewsPostId)
+            .HasForeignKey(c => c.NewsId)
             .OnDelete(DeleteBehavior.Cascade);
-        }
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     base.OnModelCreating(modelBuilder);
-        // }
+        } 
     }
 }
