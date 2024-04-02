@@ -67,6 +67,9 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("FileType");
 
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("longtext");
+
                     b.HasKey("ID");
 
                     b.ToTable("FileDetails", (string)null);
