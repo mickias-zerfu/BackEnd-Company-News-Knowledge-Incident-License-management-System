@@ -15,19 +15,14 @@ builder.Services.AddEntityFrameworkMySQL()
                     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
                 });
 
-
-// Add services to the container.
-
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+ 
+builder.Services.AddControllers();
 // builder.Services.AddEntityFrameworkMySQL()
 //                 .AddDbContext<StoreContext>(options =>options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"))
 //                 );
 
 // builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
-//     builder.Configuration.GetConnectionString("DefaultConnection")
+//     builder.Configuration.GetConnectionString("DefaultConnection") 
 // ));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -56,17 +51,15 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+// if (app.Environment.IsDevelopment())
+// { 
     app.UseCors();
     app.UseStaticFiles();
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+// }
 
-
-//app.UseSwagger();
-//app.UseSwaggerUI();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
