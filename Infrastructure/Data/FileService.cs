@@ -39,31 +39,6 @@ namespace FileUpload.Services
             }
         }
 
-        // public async Task<FileResult> GetFile(int id) 
-        // {        
-        //     var fileDetails = await _Context.FileDetails
-        //     .SingleOrDefaultAsync(f => f.Id == id);
-
-        //     if(fileDetails == null) {
-        //         return NotFound();
-        //     }
-
-        // var memoryStream = new MemoryStream(fileDetails.FileData);
-
-        // return File(memoryStream, GetMimeType(fileDetails), 
-        //     fileName: fileDetails.FileName);
-
-        // }
-
-        // private string GetMimeType(FileDetails fileDetails) {
-
-        //   // map file extension to mime type
-        //   var extension = Path.GetExtension(fileDetails.FileName);
-
-        //   // map extension to mime type
-        //   return MimeTypes.GetMimeType(extension);
-
-        // }
         public async Task PostMultiFileAsync(List<FileUploadModel> fileData)
         {
             try
@@ -122,37 +97,26 @@ namespace FileUpload.Services
 
         private FileDetails SaveFile(IFormFile file)
         {
+ 
+            var folderName = "Images/new"; 
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(folderName, fileName);             
+            var fullPath = Path.Combine("wwwroot", filePath);
+    // Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+             using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
 
-
-            var folderName = "Resources/Images/new";
-            var filePath = GetFilePath(folderName, file);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            var fileDetails = new FileDetails
             {
-                file.CopyTo(stream);
-            }
-            var fileDetails = new FileDetails();
-            fileDetails.FileName = GetFileName(file);
-            fileDetails.FileType = GetFileType(file);
-            fileDetails.FileUrl = filePath;
+                FileName = fileName,
+                FileUrl = Path.Combine("http://localhost:5195",filePath),
+                FileType = GetFileType(file)
+            };  
             return fileDetails;
         }
-        private string GetFilePath(string folderName, IFormFile file)
-        {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-            Directory.CreateDirectory(path);
-            // Get unique filename
-            var filename = Guid.NewGuid() + Path.GetExtension(file.FileName);
-
-            return Path.Combine(path, filename);
-        }
-
-        private string GetFileName(IFormFile file)
-        {
-            return Path.GetFileName(file.FileName);
-        }
-
-        // Helper to get file type
+        
         private FileType GetFileType(IFormFile file)
         {
             var extension = Path.GetExtension(file.FileName);
