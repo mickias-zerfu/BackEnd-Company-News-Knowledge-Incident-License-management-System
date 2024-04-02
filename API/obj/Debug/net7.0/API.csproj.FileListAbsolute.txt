@@ -1,5 +1,6 @@
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\appsettings.json
+C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\API.staticwebassets.runtime.json
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\API.exe
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\API.deps.json
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\API.runtimeconfig.json
@@ -119,4 +120,3 @@ C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\obj\Debug\net7.0\refint\API
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\obj\Debug\net7.0\API.pdb
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\obj\Debug\net7.0\API.genruntimeconfig.cache
 C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\obj\Debug\net7.0\ref\API.dll
-C:\Users\HP\Desktop\ZEMEN\zemen-internal-backend\api\bin\Debug\net7.0\API.staticwebassets.runtime.json
