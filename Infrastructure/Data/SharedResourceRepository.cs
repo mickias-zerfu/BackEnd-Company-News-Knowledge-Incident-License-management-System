@@ -148,22 +148,15 @@ public class SharedResourceRepository : ISharedResourceRepository
 
     private FileType GetFileType(IFormFile fileData)
     {
-        var contentType = fileData.ContentType;
-        var fileName = fileData.FileName;
+        var extension = Path.GetExtension(fileData.FileName);
 
-        if (contentType.Contains("pdf") || fileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-        {
-            return FileType.PDF;
-        }
-        else if (contentType.Contains("docx") || fileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
-        {
-            return FileType.DOCX;
-        }
-        else
-        {
-            // Handle other file types or return a default FileType value
-            return FileType.Default;
-        }
+            if (ExtensionMap.ContainsKey(extension))
+            {
+                return ExtensionMap[extension];
+            }
+
+            // default or unknown type
+            return FileType.Document;
     }
 
     private async Task<byte[]> ReadFileDataAsync(IFormFile fileData)
@@ -181,5 +174,15 @@ public class SharedResourceRepository : ISharedResourceRepository
             await stream.CopyToAsync(fileStream);
         }
     }
-
+private static Dictionary<string, FileType> ExtensionMap = 
+  new Dictionary<string, FileType>()
+{
+   {".jpg", FileType.Image},
+   {".png", FileType.Image}, 
+   {".pdf", FileType.Document},
+   {".mp4", FileType.Video},
+   {".mp3", FileType.Audio},
+   {".exe", FileType.Software},  
+   {".zip", FileType.Archive}
+};
 }
