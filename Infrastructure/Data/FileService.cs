@@ -15,7 +15,7 @@ namespace FileUpload.Services
             this._Context = context;
         }
 
-        public async Task<FileDetails> PostFileAsync(IFormFile fileData, FileType fileType)
+        public async Task<FileDetails> PostFileAsync(IFormFile fileData)
         {
             using (var transaction = await _Context.Database.BeginTransactionAsync())
             {
@@ -73,8 +73,7 @@ namespace FileUpload.Services
                     var fileDetails = new FileDetails()
                     {
                         ID = 0,
-                        FileName = file.FileDetails.FileName,
-                        FileType = file.FileType,
+                        FileName = file.FileDetails.FileName
                     };
 
                     using (var stream = new MemoryStream())

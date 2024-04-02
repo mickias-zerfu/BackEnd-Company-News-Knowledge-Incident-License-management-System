@@ -27,7 +27,7 @@ namespace FileUpload.Controllers
 
             try
             {
-                var imageStoredUrl = await _uploadService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType);
+                var imageStoredUrl = await _uploadService.PostFileAsync(fileDetails.FileDetails);
 
                 // return Ok(new { ImageUrl = imageUrl });
                 // var baseUrl = Request.Scheme + "://" + Request.Host.Value;
