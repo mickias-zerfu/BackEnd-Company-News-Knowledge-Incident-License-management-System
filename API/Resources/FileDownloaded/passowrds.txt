@@ -1,7 +1,0 @@
-psql 
-
-    "username": "postgres",
-    "password": "Mickey7260@",
-    "database": "constantine_foundation",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
