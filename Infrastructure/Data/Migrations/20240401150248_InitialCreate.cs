@@ -23,7 +23,8 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     FileName = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
                     FileData = table.Column<byte[]>(type: "longblob", nullable: false),
-                    FileType = table.Column<int>(type: "int", nullable: false)
+                    FileType = table.Column<int>(type: "int", nullable: false),
+                    FileUrl = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
