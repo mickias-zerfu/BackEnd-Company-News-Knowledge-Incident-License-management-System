@@ -2,6 +2,9 @@
 bin/
 obj/
 publish/
+API/bin/
+API/obj/
+API/publish/
 # Visual Studio Code
 .vscode/
 
