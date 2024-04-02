@@ -1,6 +1,16 @@
 # .NET Core
 bin/
 obj/
+publish/
+API/bin/
+API/obj/
+API/publish/
+Infrastructure/bin/
+Infrastructure/obj/
+Infrastructure/publish/
+Core/bin/
+Core/obj/
+Core/publish/
 
 # Visual Studio Code
 .vscode/
