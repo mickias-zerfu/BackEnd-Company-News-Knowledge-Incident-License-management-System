@@ -15,7 +15,7 @@ builder.Services.AddEntityFrameworkMySQL()
                     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
                 });
 
- 
+
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -57,13 +57,15 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{ 
+{
     app.UseCors();
     app.UseStaticFiles();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
