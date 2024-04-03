@@ -19,6 +19,7 @@ namespace Infrastructure.Data.config
         builder.Property(sr => sr.FileDescription).IsRequired();
         builder.Property(sr => sr.FileType);
         builder.Property(sr => sr.FileData);
+        builder.Property(sr=>sr.FileUrl);
         builder.Property(sr => sr.Created_at);
         builder.Property(sr => sr.Updated_at);
         }

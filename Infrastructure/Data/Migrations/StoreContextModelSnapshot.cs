@@ -196,6 +196,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("FileType")
                         .HasColumnType("int");
 
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Updated_at")
                         .HasColumnType("longtext");
 

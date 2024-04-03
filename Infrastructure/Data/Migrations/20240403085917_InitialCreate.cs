@@ -121,6 +121,7 @@ namespace Infrastructure.Data.Migrations
                     FileName = table.Column<string>(type: "longtext", nullable: false),
                     FileData = table.Column<byte[]>(type: "longblob", nullable: true),
                     FileType = table.Column<int>(type: "int", nullable: false),
+                    FileUrl = table.Column<string>(type: "longtext", nullable: true),
                     Created_at = table.Column<string>(type: "longtext", nullable: true),
                     Updated_at = table.Column<string>(type: "longtext", nullable: true)
                 },
