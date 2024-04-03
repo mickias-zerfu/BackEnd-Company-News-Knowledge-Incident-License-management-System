@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gL3UomU2bOJqWepnDmpE7kmeOY8Muub0qvDHYPHgboU=",
+  "Hash": "axzDzkFpUtiT6D3rNz9E4vF8xVcgKn3oPr7C13edLXU=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\06d7d797-4a66-426a-95e8-59a134e03dee.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/06d7d797-4a66-426a-95e8-59a134e03dee.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\06d7d797-4a66-426a-95e8-59a134e03dee.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\0968bc80-326d-4371-98fa-8716a9398226.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/0968bc80-326d-4371-98fa-8716a9398226.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\0968bc80-326d-4371-98fa-8716a9398226.jpg"
+    },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\332c3215-9f9b-42f2-96bb-d6dd56406d2f.png",
       "SourceId": "API",
@@ -34,6 +68,23 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\332c3215-9f9b-42f2-96bb-d6dd56406d2f.png"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\44619018-7692-4377-9d56-58bae087f87b.txt",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/44619018-7692-4377-9d56-58bae087f87b.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\44619018-7692-4377-9d56-58bae087f87b.txt"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\557d6236-77a3-4858-9e82-3109698ffd1f.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -49,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\557d6236-77a3-4858-9e82-3109698ffd1f.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\5703336e-20f9-4058-b360-4f853bc531a0.txt",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/5703336e-20f9-4058-b360-4f853bc531a0.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\5703336e-20f9-4058-b360-4f853bc531a0.txt"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\7b3d0071-7cff-43e0-bace-1b4f65dc5a5d.jpg",
@@ -85,6 +153,23 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\94a798b5-2403-4a07-a476-2df7a567bb3b.png"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\b85e6c01-a71b-4c03-98ba-f3b67b436590.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/b85e6c01-a71b-4c03-98ba-f3b67b436590.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\b85e6c01-a71b-4c03-98ba-f3b67b436590.jpg"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\bc537b5f-fc00-4de5-8c61-ab119c56572c.png",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -117,6 +202,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\db0d216c-ac42-4ae1-b6c0-76e88a595adc.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\e3a8706d-033e-43ad-928c-2698bd96bf25.txt",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/e3a8706d-033e-43ad-928c-2698bd96bf25.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\e3a8706d-033e-43ad-928c-2698bd96bf25.txt"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\new\\24308e9a-916b-4393-a3b0-f8c2993b0de8.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/new/24308e9a-916b-4393-a3b0-f8c2993b0de8.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\new\\24308e9a-916b-4393-a3b0-f8c2993b0de8.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\new\\3fbe184b-cd82-4e90-9ffb-27dbcc9b3f80.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/new/3fbe184b-cd82-4e90-9ffb-27dbcc9b3f80.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\new\\3fbe184b-cd82-4e90-9ffb-27dbcc9b3f80.png"
     }
   ]
 }
