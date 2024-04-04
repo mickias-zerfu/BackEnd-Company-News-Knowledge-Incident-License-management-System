@@ -5,6 +5,7 @@ using FileUpload.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Licenses;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 
@@ -76,6 +77,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
