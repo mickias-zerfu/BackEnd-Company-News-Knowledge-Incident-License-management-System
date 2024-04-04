@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Aashbv2OpgbrtAUa1twbY06mwoFlwRGoXE99FYr/xLo=",
+  "Hash": "vHsxo5bVO+wSAPry1SOXl9yf4OpSCWTAio0p0qK9UBg=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -102,6 +102,23 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\44619018-7692-4377-9d56-58bae087f87b.txt"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\53909c41-98ed-4ab1-b765-dd0d0c34004c.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/53909c41-98ed-4ab1-b765-dd0d0c34004c.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\53909c41-98ed-4ab1-b765-dd0d0c34004c.png"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\557d6236-77a3-4858-9e82-3109698ffd1f.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -119,6 +136,23 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\557d6236-77a3-4858-9e82-3109698ffd1f.jpg"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\56c4e935-ed9e-42d3-b713-9359ed192543.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/56c4e935-ed9e-42d3-b713-9359ed192543.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\56c4e935-ed9e-42d3-b713-9359ed192543.jpg"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\5703336e-20f9-4058-b360-4f853bc531a0.txt",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -134,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\5703336e-20f9-4058-b360-4f853bc531a0.txt"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\5c066f3e-17f7-473a-8987-cd31c82bf131.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/5c066f3e-17f7-473a-8987-cd31c82bf131.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\5c066f3e-17f7-473a-8987-cd31c82bf131.png"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\6c9c628c-8693-4dcf-b1a0-c23694d9ebf0.png",
@@ -204,6 +255,40 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\94a798b5-2403-4a07-a476-2df7a567bb3b.png"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\9935a8c2-9613-4088-9943-46da3be7e172.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/9935a8c2-9613-4088-9943-46da3be7e172.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\9935a8c2-9613-4088-9943-46da3be7e172.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\ad7e85b7-9b2d-41fc-be49-718e839c1773.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/ad7e85b7-9b2d-41fc-be49-718e839c1773.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\ad7e85b7-9b2d-41fc-be49-718e839c1773.png"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\b85e6c01-a71b-4c03-98ba-f3b67b436590.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -236,6 +321,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\bc537b5f-fc00-4de5-8c61-ab119c56572c.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\d293ea01-f49d-4e4b-b1a6-d5495698cb5d.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/d293ea01-f49d-4e4b-b1a6-d5495698cb5d.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\d293ea01-f49d-4e4b-b1a6-d5495698cb5d.jpg"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\d5b3d7d1-aa0e-4ebf-a4e9-c295e797096b.PNG",
@@ -408,6 +510,40 @@
       "OriginalItemSpec": "wwwroot\\temp\\5e4b36c7-3761-4a2b-bd4d-a870abb30458_colab recipt jan.png"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\6c6a2862-2ca3-489d-b3bd-efa64a8b8cc4_Logo Color Variations.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/6c6a2862-2ca3-489d-b3bd-efa64a8b8cc4_Logo Color Variations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\6c6a2862-2ca3-489d-b3bd-efa64a8b8cc4_Logo Color Variations.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\7a0ac8f2-2b27-44d5-b37c-0d244abb741b_Logo Color Variations.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/7a0ac8f2-2b27-44d5-b37c-0d244abb741b_Logo Color Variations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\7a0ac8f2-2b27-44d5-b37c-0d244abb741b_Logo Color Variations.pdf"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\8da2a70f-487c-43e9-83df-2dd5cd7f517f_colab recipt jan.png",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -423,6 +559,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\temp\\8da2a70f-487c-43e9-83df-2dd5cd7f517f_colab recipt jan.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\a72523e1-a7c0-4b04-8105-307b44f0644d_Logo Color Variations.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/a72523e1-a7c0-4b04-8105-307b44f0644d_Logo Color Variations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\a72523e1-a7c0-4b04-8105-307b44f0644d_Logo Color Variations.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\d12cfb81-88d3-408a-ab00-caace52e627e_Logo Color Variations.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/d12cfb81-88d3-408a-ab00-caace52e627e_Logo Color Variations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\d12cfb81-88d3-408a-ab00-caace52e627e_Logo Color Variations.pdf"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\e4157e42-bd09-40f5-a5df-9ab0c99b2f28_colab recipt 3.png",
@@ -474,6 +644,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\temp\\f09402a0-4812-49b6-a854-0461f17aa346_colab recipt jan.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\temp\\fa8a163c-b7c0-400b-98ff-1e67805746dc_Logo Color Variations.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/fa8a163c-b7c0-400b-98ff-1e67805746dc_Logo Color Variations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\fa8a163c-b7c0-400b-98ff-1e67805746dc_Logo Color Variations.pdf"
     }
   ]
 }

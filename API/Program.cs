@@ -37,12 +37,14 @@ builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
 builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
 builder.Services.AddScoped<ISharedResourceRepository, SharedResourceRepository>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
 builder.Services.AddScoped<ISoftwareProductRepository, SoftwareProductRepository>();
 builder.Services.AddScoped<ILicenseManagerRepository, LicenseManagerRepository>();
 builder.Services.AddScoped<ILicenseExpirationService, LicenseExpirationService>();
 builder.Services.AddScoped<IEmailNotificationService, EmailNotificationService>();
+builder.Services.AddScoped<ILicenseDashboardService, LicenseDashboardService>();
 
 builder.Services.AddCors(options =>
 {
