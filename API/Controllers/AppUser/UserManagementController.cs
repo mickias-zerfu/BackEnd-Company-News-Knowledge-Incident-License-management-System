@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.AppUser;
+using Core.Interfaces.auth;
 using Infrastructure.Data.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,9 @@ namespace API.Controllers.AppUser
     [Route("[controller]")]
     public class UserManagementController : ControllerBase
     {
-        private readonly ActiveDirectoryService _authService;
+        private readonly IActiveDirectoryService _authService;
 
-        public UserManagementController(ActiveDirectoryService authService)
+        public UserManagementController(IActiveDirectoryService authService)
         {
             _authService = authService;
         }

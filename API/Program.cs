@@ -1,8 +1,10 @@
 using System.Text.Json.Serialization;
 using Core.Interfaces;
+using Core.Interfaces.auth;
 using Core.Interfaces.licenses;
 using FileUpload.Services;
 using Infrastructure.Data;
+using Infrastructure.Data.Auth;
 using Infrastructure.Data.Licenses;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +34,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IActiveDirectoryService, ActiveDirectoryService>();
 
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
