@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\API.csproj": {}
+    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\API.csproj": {
+    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\API.csproj",
+        "projectPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Mikiyas.Zerfu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\obj\\",
+        "outputPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mikiyas.Zerfu\\AppData\\Roaming\\NuGet\\NuGet.Config",

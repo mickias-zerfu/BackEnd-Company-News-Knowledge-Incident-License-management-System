@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Auth
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "Zemenbank.local"))
             {
 
-                UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
+                //UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
                 //if (user == null)
                 //{
                 //    return false;

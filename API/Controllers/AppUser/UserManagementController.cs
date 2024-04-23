@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.AppUser
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController] 
+    [Route("api/user")]
     public class UserManagementController : ControllerBase
     {
         private readonly IActiveDirectoryService _authService;
