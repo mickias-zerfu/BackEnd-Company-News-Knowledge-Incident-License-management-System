@@ -4,7 +4,7 @@ using Infrastructure.Data.Identity;
 using Core.Entities.AppUser; // Import your User model
 
 [ApiController]
-[Route("[api/Startup]")]
+[Route("api/[controller]")]
 public class StartupController : ControllerBase
 {
     private readonly ILogger<StartupController> _logger;
