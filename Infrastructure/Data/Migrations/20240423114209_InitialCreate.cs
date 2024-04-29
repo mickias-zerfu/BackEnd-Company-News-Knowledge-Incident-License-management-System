@@ -150,6 +150,24 @@ namespace Infrastructure.Data.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "SubAdmin",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Access = table.Column<string>(type: "longtext", nullable: true),
+                    PasswordHash = table.Column<string>(type: "longtext", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubAdmin", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -262,6 +280,9 @@ namespace Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "SharedResources");
+
+            migrationBuilder.DropTable(
+                name: "SubAdmin");
 
             migrationBuilder.DropTable(
                 name: "News");

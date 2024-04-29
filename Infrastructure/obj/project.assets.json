@@ -4565,7 +4565,6 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Core >= 1.0.0",
-      "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.AspNetCore.OpenApi >= 7.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.10",
       "Microsoft.EntityFrameworkCore.Sqlite >= 7.0.10",
@@ -4617,10 +4616,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Http": {
-            "target": "Package",
-            "version": "[2.2.2, )"
-          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[7.0.10, )"

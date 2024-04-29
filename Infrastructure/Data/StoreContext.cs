@@ -10,7 +10,7 @@ namespace Infrastructure.Data
 {
     public class StoreContext : DbContext
     {
-        public StoreContext(DbContextOptions options) : base(options)
+        public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
         }
 
@@ -20,8 +20,6 @@ namespace Infrastructure.Data
         public DbSet<SharedResource> SharedResources { get; set; }
         public DbSet<FileDetails> FileDetails { get; set; }
         public DbSet<Comment> Comments { get; internal set; }
-
-
         public DbSet<License> Licenses { get; set; }
         public DbSet<SoftwareProduct> SoftwareProducts { get; set; }
         public DbSet<LicenseManager> LicenseManagers { get; set; }

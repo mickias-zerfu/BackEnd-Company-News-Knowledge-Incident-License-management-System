@@ -1837,7 +1837,6 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Core": "1.0.0",
-          "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.OpenApi": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.10",
@@ -5122,11 +5121,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\API.csproj",
+      "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\API.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\API\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

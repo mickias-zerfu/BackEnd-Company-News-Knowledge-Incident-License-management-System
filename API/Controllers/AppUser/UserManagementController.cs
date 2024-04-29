@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.Entities.AppUser;
 using Core.Interfaces.auth;
-using Infrastructure.Data.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.AppUser

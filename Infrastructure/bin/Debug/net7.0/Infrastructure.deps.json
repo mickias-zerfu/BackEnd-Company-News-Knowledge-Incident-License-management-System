@@ -9,7 +9,6 @@
       "Infrastructure/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
-          "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.OpenApi": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.10",

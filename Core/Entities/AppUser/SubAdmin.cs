@@ -10,9 +10,12 @@ namespace Core.Entities.AppUser
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        public List<string> Access { get; set; }
+ 
+        public int[]? Access { get; set; }
         public string PasswordHash { get; set; }
         public int RoleId { get; set; }
+        public int Status { get; set; }
+        public DateTime Created_at { get; set; } // Change to DateTime
+        public DateTime Updated_at { get; set; } // Change to DateTime
     }
 }

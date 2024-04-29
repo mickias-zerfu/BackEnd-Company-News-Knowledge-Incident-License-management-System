@@ -5,6 +5,7 @@ using Core.Interfaces.licenses;
 using FileUpload.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Auth;
+using Infrastructure.Data.Identity;
 using Infrastructure.Data.Licenses;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,12 @@ builder.Services.AddEntityFrameworkMySQL()
                 .AddDbContext<StoreContext>(options =>
                 {
                     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+                });
+ 
+builder.Services.AddEntityFrameworkMySQL()
+                .AddDbContext<AppIdentityDbContext>(options =>
+                {
+                    options.UseMySQL(builder.Configuration.GetConnectionString("IdentityConnection"));
                 });
 
 
@@ -35,6 +42,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IActiveDirectoryService, ActiveDirectoryService>();
+builder.Services.AddScoped<ISubAdminService, SubAdminService>();
 
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
@@ -85,10 +93,12 @@ app.MapFallbackToController("Index", "Fallback");
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
+var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
     await context.Database.MigrateAsync();
+    await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
 }
 catch (Exception ex)
