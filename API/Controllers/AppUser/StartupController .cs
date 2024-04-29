@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc; 
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data.Identity;
 using Core.Entities.AppUser; // Import your User model
 
@@ -8,7 +8,7 @@ using Core.Entities.AppUser; // Import your User model
 public class StartupController : ControllerBase
 {
     private readonly ILogger<StartupController> _logger;
-        private readonly AppIdentityDbContext _context; 
+    private readonly AppIdentityDbContext _context;
 
     public StartupController(ILogger<StartupController> logger, AppIdentityDbContext context)
     {
@@ -16,7 +16,7 @@ public class StartupController : ControllerBase
         _context = context;
     }
 
-    [HttpPost]
+    [HttpPost("start")]
     public async Task<IActionResult> Post()
     {
         try
@@ -30,8 +30,8 @@ public class StartupController : ControllerBase
                 var user = new SubAdmin
                 {
                     Name = "Super Admin",
-                    Email = "superadmin@gmail.com", 
-                    PasswordHash = "P@ssw0rdMZ", 
+                    Email = "superadmin@gmail.com",
+                    PasswordHash = "P@ssw0rdMZ",
                     RoleId = 2,
                     Status = 1,
                     Access = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
