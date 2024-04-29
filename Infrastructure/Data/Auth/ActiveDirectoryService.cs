@@ -9,9 +9,8 @@ namespace Infrastructure.Data.Auth
 {
     public class ActiveDirectoryService : IActiveDirectoryService
     {
-        public async Task<bool> IsValidUser(string username, string password)
+        public async Task<object> IsValidUser(string username, string password)
         {
-            //TODO: Add Active Directory logic
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "Zemenbank.local"))
             {
 
@@ -29,7 +28,25 @@ namespace Infrastructure.Data.Auth
                 //{
                 //    return false;
                 //}
-                return await Task.FromResult(context.ValidateCredentials(username, password));
+                // return await Task.FromResult(context.ValidateCredentials(username, password));
+                if (context.ValidateCredentials(username, password))
+                {
+                    // Here, you can retrieve additional user data and return it
+                    // For example:
+                    var userPrincipal = UserPrincipal.FindByIdentity(context, username);
+                    // var userData = new
+                    // {
+                    //     Username = username,
+                    //     Email = userPrincipal?.EmailAddress,
+                    //     // Add other user details as needed
+                    // };
+                    return userPrincipal;
+                }
+                else
+                {
+                    // Authentication failed, return null or an error message
+                    return null;
+                }
             }
         }
     }

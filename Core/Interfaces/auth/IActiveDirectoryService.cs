@@ -8,6 +8,6 @@ namespace Core.Interfaces.auth
 {
     public interface IActiveDirectoryService
     {
-        Task<bool> IsValidUser(string username, string password);
+        Task<object> IsValidUser(string username, string password);
     }
 }

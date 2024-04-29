@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.AppUser
 {
-    [ApiController] 
+    [ApiController]
     [Route("api/user")]
     public class UserManagementController : ControllerBase
     {
@@ -14,10 +14,23 @@ namespace API.Controllers.AppUser
         {
             _authService = authService;
         }
+        // [HttpPost("login")]
+        // public async Task<ActionResult<bool>> LoginUser(LoginUserEntity user)
+        // {
+        //     return await _authService.IsValidUser(user.UserName, user.Password);
+        // }
         [HttpPost("login")]
-        public async Task<ActionResult<bool>> LoginUser(LoginUserEntity user)
+        public async Task<ActionResult<object>> LoginUser(LoginUserEntity user)
         {
-            return await _authService.IsValidUser(user.UserName, user.Password);
+            var userData = await _authService.IsValidUser(user.UserName, user.Password);
+            if (userData != null)
+            {
+                return Ok(userData);
+            }
+            else
+            {
+                return Unauthorized(); // Or any other appropriate status code
+            }
         }
     }
 }
