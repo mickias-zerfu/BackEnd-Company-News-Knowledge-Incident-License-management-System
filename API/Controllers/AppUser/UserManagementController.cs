@@ -1,6 +1,7 @@
 using Core.Entities.AppUser;
 using Core.Interfaces.auth;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 
 namespace API.Controllers.AppUser
 {
@@ -24,8 +25,8 @@ namespace API.Controllers.AppUser
         {
             var userData = await _authService.IsValidUser(user.UserName, user.Password);
             if (userData != null)
-            {
-                return Ok(userData);
+            { 
+                return Ok(new { response = userData });
             }
             else
             {
