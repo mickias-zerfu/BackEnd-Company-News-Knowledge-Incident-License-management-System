@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj": {}
+    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\Core.csproj": {
+    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\obj\\",
+        "projectPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Mikiyas.Zerfu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mikiyas.Zerfu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -56,26 +61,40 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Mikiyas.Zerfu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mikiyas.Zerfu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,8 +108,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\HP\\Desktop\\ZEMEN\\zemen-internal-backend\\Core\\Core.csproj"
+              "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\Core\\Core.csproj"
               }
             }
           }
@@ -99,6 +118,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -141,12 +165,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.17, 7.0.17]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
