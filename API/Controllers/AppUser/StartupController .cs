@@ -19,17 +19,18 @@ public class StartupController : ControllerBase
     [HttpPost("start")]
     public async Task<IActionResult> Post()
     {
+        
         try
         {
             // Check if there are any super admins already
-            var superAdminExists = await _context.SubAdmins.AnyAsync(u => u.RoleId == 2);
+            // var superAdminExists = await _context.SubAdmins.AnyAsync(u => u.RoleId == 2);
 
-            if (!superAdminExists)
-            {
+            // if (!superAdminExists)
+            // {
                 // Create the super admin user
                 var user = new SubAdmin
                 {
-                    Name = "Super Admin",
+                    DisplayName = "Super Admin",
                     Email = "superadmin@gmail.com",
                     PasswordHash = "P@ssw0rdMZ",
                     RoleId = 2,
@@ -38,13 +39,13 @@ public class StartupController : ControllerBase
                 };
 
                 // Add the user to the database
-                _context.SubAdmins.Add(user);
+                // _context.SubAdmins.Add(user);
                 await _context.SaveChangesAsync();
 
                 return Ok(new { status = 1, message = "Super Admin Created Successfully", data = user });
-            }
+            // }
 
-            return Ok(new { status = 0, message = "Super Admin already exists" });
+            // return Ok(new { status = 0, message = "Super Admin already exists" });
         }
         catch (Exception ex)
         {

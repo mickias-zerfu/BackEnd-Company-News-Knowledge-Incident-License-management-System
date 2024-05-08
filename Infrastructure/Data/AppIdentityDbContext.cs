@@ -1,17 +1,16 @@
-// using Core.Entities.Identity;
-// using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Core.Entities.AppUser;
+ using Core.Entities.AppUser;
 using Infrastructure.Data.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Identity
 {
-    public class AppIdentityDbContext : DbContext
+    public class AppIdentityDbContext : IdentityDbContext<SubAdmin>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options)
         {
         }
-        public DbSet<SubAdmin> SubAdmins { get; set; }
+        // public DbSet<SubAdmin> SubAdmins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

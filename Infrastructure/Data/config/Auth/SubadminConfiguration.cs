@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Configurations
             builder.Property(c => c.Id).IsRequired();
             builder.Property(c => c.Email).IsRequired();
             builder.Property(c => c.RoleId).IsRequired();
-            builder.Property(c => c.Name).IsRequired();
+            builder.Property(c => c.DisplayName).IsRequired();
             builder.Property(c => c.PasswordHash).IsRequired();
                builder.Property(c => c.Access)
                    .IsRequired(false) // Allow null values for Access

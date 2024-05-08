@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using API.Extensions;
+using Core.Entities.AppUser;
 using Core.Interfaces;
 using Core.Interfaces.auth;
 using Core.Interfaces.licenses;
@@ -7,39 +9,32 @@ using Infrastructure.Data;
 using Infrastructure.Data.Auth;
 using Infrastructure.Data.Identity;
 using Infrastructure.Data.Licenses;
+using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 builder.Services.AddEntityFrameworkMySQL()
                 .AddDbContext<StoreContext>(options =>
                 {
                     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
                 });
- 
+
 builder.Services.AddEntityFrameworkMySQL()
-                .AddDbContext<AppIdentityDbContext>(options =>
-                {
-                    options.UseMySQL(builder.Configuration.GetConnectionString("IdentityConnection"));
-                });
+                           .AddDbContext<AppIdentityDbContext>(options =>
+                           {
+                               options.UseMySQL(builder.Configuration.GetConnectionString("IdentityConnection"));
+                           });
 
-
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
-// builder.Services.AddEntityFrameworkMySQL()
-//                 .AddDbContext<StoreContext>(options =>options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"))
-//                 );
-
-// builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(
-//     builder.Configuration.GetConnectionString("DefaultConnection")
-// ));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerDocumentation();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IActiveDirectoryService, ActiveDirectoryService>();
 builder.Services.AddScoped<ISubAdminService, SubAdminService>();
@@ -74,16 +69,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseCors();
     app.UseStaticFiles();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+
+    app.UseSwaggerDocumentation();
 }
 
-app.UseSwagger();
-app.UseSwaggerUI();
+
+app.UseSwaggerDocumentation();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -92,14 +88,17 @@ app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-var context = services.GetRequiredService<StoreContext>();
-var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
+    var context = services.GetRequiredService<StoreContext>();
     await context.Database.MigrateAsync();
-    await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
+
+    var userManager = services.GetRequiredService<UserManager<SubAdmin>>();
+    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+    await identityContext.Database.MigrateAsync();
+    await AppIdentityDbContextSeed.SeedUsersAsync(userManager, logger);
 }
 catch (Exception ex)
 {
