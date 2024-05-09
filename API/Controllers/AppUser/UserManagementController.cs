@@ -1,3 +1,4 @@
+using API.Dtos;
 using Core.Entities.AppUser;
 using Core.Interfaces.auth;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +12,24 @@ namespace API.Controllers.AppUser
     {
         private readonly IActiveDirectoryService _authService;
 
-        public UserManagementController(IActiveDirectoryService authService)
+        private readonly ISubAdminService _subAdminService;
+        public UserManagementController(IActiveDirectoryService authService, ISubAdminService subAdminService)
         {
             _authService = authService;
+            _subAdminService = subAdminService;
         }
         // [HttpPost("login")]
         // public async Task<ActionResult<bool>> LoginUser(LoginUserEntity user)
         // {
         //     return await _authService.IsValidUser(user.UserName, user.Password);
         // }
-        [HttpPost("login")]
-        public async Task<ActionResult<object>> LoginUser(LoginUserEntity user)
+        [HttpPost("domainlogin")]
+        public async Task<ActionResult<DomainDto>> LoginUser(LoginUserEntity user)
         {
             var userData = await _authService.IsValidUser(user.UserName, user.Password);
             if (userData != null)
-            { 
-                return Ok(new { response = userData });
+            {
+                return Ok(userData);
             }
             else
             {

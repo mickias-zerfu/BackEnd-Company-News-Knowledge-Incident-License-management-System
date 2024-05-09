@@ -1,71 +1,78 @@
 using Core.Interfaces.auth;
-using System;
-using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
-using System.Linq;
-using System.Threading.Tasks;
+using Core.Entities.AppUser;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;  
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Data.Auth
 {
     public class ActiveDirectoryService : IActiveDirectoryService
-    {
-        public async Task<object> IsValidUser(string username, string password)
+    { 
+        private readonly IConfiguration _config;
+        private readonly SymmetricSecurityKey _key;
+        public ActiveDirectoryService(IConfiguration config)
+        {        
+            _config = config;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));}
+
+        public async Task<DomainDto> IsValidUser(string username, string password)
         {
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "Zemenbank.local"))
-            { 
+            {
                 UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
                 if (user == null)
                 {
-                    return new { status = 0, message = "User Not Found", response = new { } };
+                    return new DomainDto { Status = 0, Message = "User Not Found " };
                 }
                 if (user.IsAccountLockedOut())
                 {
-                    return new { status = 0, message = "User Account Locked Out, Please inform your nearest admin!!", response = new { } };
+                    return new DomainDto { Status = 0, Message = "User Account Locked Out, Please inform your nearest admin!! " };
                 }
                 if (!context.ValidateCredentials(username, password))
                 {
-                    return new { status = 0, message = " Invalid Credentials", response = new { } };
+                    return new DomainDto { Status = 0, Message = " Invalid Credentials" };
                 }
                 if (context.ValidateCredentials(username, password))
                 {
-                    return new
+                    return new DomainDto
                     {
-                        status = 1,
-                        message = "Successfull Login",
-                        response = new
-                        {
-                            user_id = user?.EmployeeId,
-                            user_data = new
-                            {
-                                name = username,
-                                email = user?.EmailAddress,
-                                role_id = 0
-                            }
-                        },
-                        token = "generate token wait "
-
+                        DisplayName = username,
+                        Token = CreateToken(user),
+                        Email = user?.EmailAddress,
+                        Status = 1,
+                        RoleId = 0,
+                        Message = "Login Successfully",
                     };
+
                 }
-                return new { status = 0, message = " Invalid Credentials", response = new { } };
+                return new DomainDto { Status = 0, Message = " Invalid Credentials" };
             }
         }
+        public string CreateToken(UserPrincipal user )
+        {
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user?.EmailAddress), 
+            };
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds,
+                Issuer = _config["Token:Issuer"]
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
     }
-}
-                //if (context.ValidateCredentials(username, password))
-                //{
-                //    // Here, you can retrieve additional user data and return it
-                //    // For example:
-                //    var userPrincipal = UserPrincipal.FindByIdentity(context, username);
-                //    // var userData = new
-                //    // {
-                //    //     Username = username,
-                //    //     Email = userPrincipal?.EmailAddress,
-                //    //     // Add other user details as needed
-                //    // };
-                //    return userPrincipal;
-                //}
-                //else
-                //{
-                //    // Authentication failed, return null or an error message
-                //    return null;
-                //}
+} 
