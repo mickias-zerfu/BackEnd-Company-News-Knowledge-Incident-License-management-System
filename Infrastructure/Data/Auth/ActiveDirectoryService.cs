@@ -39,7 +39,7 @@ namespace Infrastructure.Data.Auth
                 {
                     return new DomainDto
                     {
-                        DisplayName = username,
+                        DisplayName = username.IndexOf('.') == -1 ? username : username.Substring(0, username.IndexOf('.')),
                         Token = CreateToken(user),
                         Email = user?.EmailAddress,
                         Status = 1,
