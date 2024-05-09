@@ -33,6 +33,7 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<SharedResource>>> GetSharedResources()
         {
             var sharedResources = await _repository.GetSharedResourcesAsync();
+            
             return Ok(sharedResources);
         }
 

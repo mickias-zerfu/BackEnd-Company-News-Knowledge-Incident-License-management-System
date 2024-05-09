@@ -37,12 +37,7 @@ public class SharedResourceRepository : ISharedResourceRepository
     {
         var sharedResources = await _context.SharedResources
           .ToListAsync();
-
-        if (sharedResources.Count == 0)
-        {
-            throw new Exception("No shared resources found");
-        }
-
+ 
         return sharedResources;
     }
 
