@@ -21,11 +21,12 @@ using MySql.EntityFrameworkCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    options.JsonSerializerOptions.MaxDepth = 32;
-});
+builder.Services.AddControllers();
+// .AddJsonOptions(options =>
+// {
+//     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+//     options.JsonSerializerOptions.MaxDepth = 32;
+// });
 builder.Services.AddEntityFrameworkMySQL()
                 .AddDbContext<StoreContext>(options =>
                 {
