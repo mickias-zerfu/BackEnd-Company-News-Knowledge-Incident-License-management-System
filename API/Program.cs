@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using API.Errors;
 using API.Extensions;
+using API.Middlewares;
 using Core.Entities.AppUser;
 using Core.Interfaces;
 using Core.Interfaces.auth;
@@ -13,6 +15,7 @@ using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 
@@ -56,7 +59,23 @@ builder.Services.AddScoped<ILicenseManagerRepository, LicenseManagerRepository>(
 builder.Services.AddScoped<ILicenseExpirationService, LicenseExpirationService>();
 builder.Services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 builder.Services.AddScoped<ILicenseDashboardService, LicenseDashboardService>();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+           {
+               options.InvalidModelStateResponseFactory = actionContext =>
+               {
+                   var errors = actionContext.ModelState
+                       .Where(e => e.Value.Errors.Count > 0)
+                       .SelectMany(x => x.Value.Errors)
+                       .Select(x => x.ErrorMessage).ToArray();
 
+                   var errorResponse = new ApiValidationErrorResponse
+                   {
+                       Errors = errors
+                   };
+
+                   return new BadRequestObjectResult(errorResponse);
+               };
+           });
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -67,7 +86,9 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
