@@ -35,7 +35,7 @@ namespace API.Controllers.AppUser
             return "secret stuff";
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpGet("getSingleSubAdmin")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
@@ -54,7 +54,7 @@ namespace API.Controllers.AppUser
             };
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpGet("getSubAdmin")]
         public async Task<ActionResult<List<UserDto>>> GetSubAdmin()
         {
@@ -104,7 +104,7 @@ namespace API.Controllers.AppUser
 
 
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("insert")]
         public async Task<ActionResult<UserDto>> InsertSubAdmin(RegisterDto subAdmin)
         {
@@ -149,7 +149,7 @@ namespace API.Controllers.AppUser
 
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPut("updateSubAdmin")]
         public async Task<ActionResult<UserDto>> UpdateSubAdmin(RegisterDto subAdmin)
         {
@@ -174,7 +174,7 @@ namespace API.Controllers.AppUser
             return BadRequest(new { message = "Failed to update SubAdmin" });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("inactiveSubadmin")]
         public async Task<ActionResult<UserDto>> InactiveSubAdmin(string id)
         {
@@ -192,7 +192,7 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to inactivate subadmin" });
         }
-        // [Authorize]
+        [Authorize]
         [HttpPost("activeSubadmin")]
         public async Task<ActionResult<UserDto>> ActiveSubAdmin(string id)
         {
@@ -210,7 +210,7 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to activate subadmin" });
         }
-        // [Authorize]
+        [Authorize]
         [HttpDelete("deleteSubAdmin")]
         public async Task<IActionResult> DeleteSubAdmin(string id)
         {
