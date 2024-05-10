@@ -2,27 +2,43 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.EntityFrameworkCore;
 
 public class SharedResourceRepository : ISharedResourceRepository
 {
-    private readonly StoreContext _Context;
+    private readonly StoreContext _context;
 
-    public SharedResourceRepository(StoreContext Context)
+    private readonly IWebHostEnvironment _environment;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public SharedResourceRepository(StoreContext context, IWebHostEnvironment environment, IHttpContextAccessor httpContextAccessor)
     {
-        _Context = Context;
+        _context = context;
+        _environment = environment;
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<SharedResource> GetSharedResourceByIdAsync(int Id)
+    public async Task<SharedResource> GetSharedResourceByIdAsync(int id)
     {
-        // var file = _Context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
+        var sharedResource = await _context.SharedResources
+          .SingleOrDefaultAsync(x => x.Id == id);
 
-        return await _Context.SharedResources.FindAsync(Id);
+        if (sharedResource == null)
+        {
+            throw new KeyNotFoundException("Shared resource not found");
+        }
+
+        return sharedResource;
     }
 
     public async Task<IReadOnlyList<SharedResource>> GetSharedResourcesAsync()
     {
-        return await _Context.SharedResources.ToListAsync();
+        var sharedResources = await _context.SharedResources
+          .ToListAsync();
+ 
+        return sharedResources;
     }
 
     public async Task<SharedResource> CreateSharedResourceAsync(SharedResourceUploadModel fileData)
@@ -30,133 +46,139 @@ public class SharedResourceRepository : ISharedResourceRepository
         try
         {
             DateTime today = DateTime.Today;
-            var fileDetails = new SharedResource()
+
+            // Map SharedResourceUploadModel to SharedResource entity
+            var sharedResource = new SharedResource
             {
-                Id = 0,
                 FileTitle = fileData.FileTitle,
                 FileDescription = fileData.FileDescription,
                 FileName = fileData.FileDetails.FileName,
-                FileType = fileData.FileType,
-                // FileType = GetFileType(fileData.FileDetails),
+                FileType = GetFileType(fileData.FileDetails), // Assuming GetFileType is implemented
+                FileUrl = Guid.NewGuid().ToString(),
                 Created_at = today.ToString(),
                 Updated_at = today.ToString()
             };
+
             using (var stream = new MemoryStream())
             {
                 fileData.FileDetails.CopyTo(stream);
-                fileDetails.FileData = stream.ToArray();
+                sharedResource.FileData = stream.ToArray();
             }
-            var result = _Context.SharedResources.Add(fileDetails);
-            await _Context.SaveChangesAsync();
 
-            return fileDetails;
+            // Add to context and save changes
+            _context.SharedResources.Add(sharedResource);
+            await _context.SaveChangesAsync();
+
+            return sharedResource;
         }
         catch (Exception)
         {
-            throw;
+            throw; // Handle or log the exception as needed
         }
     }
-
     public async Task<SharedResource> UpdateSharedResourceAsync(int id, SharedResourceUploadModel fileData)
     {
-        try
+        var sharedResourceToUpdate = await _context.SharedResources.FindAsync(id);
+
+        if (sharedResourceToUpdate == null)
         {
-            if (fileData == null)
-            {
-                throw new ArgumentNullException(nameof(fileData), "File data is null.");
-            }
-
-            DateTime today = DateTime.Today;
-            var existingResource = await _Context.SharedResources.FindAsync(id);
-            if (existingResource == null)
-            {
-                // Resource with the specified ID not found
-                return null;
-            }
-
-            // Update the existing resource properties
-            existingResource.FileTitle = fileData.FileTitle ?? existingResource.FileTitle; // Use existing title if new title is null
-            existingResource.FileDescription = fileData.FileDescription;
-            existingResource.FileName = fileData.FileDetails != null ? fileData.FileDetails.FileName : existingResource.FileName;
-            existingResource.FileType = fileData.FileType;
-            existingResource.Updated_at = today.ToString();
-
-            // Update file data if provided
-            if (fileData.FileDetails != null)
-            {
-                using (var stream = new MemoryStream())
-                {
-                    fileData.FileDetails.CopyTo(stream);
-                    existingResource.FileData = stream.ToArray();
-                }
-            }
-
-            // Save changes to the database
-            await _Context.SaveChangesAsync();
-
-            return existingResource;
+            throw new Exception("Shared resource not found");
         }
-        catch (Exception)
+
+        // Map properties
+        sharedResourceToUpdate.FileTitle = fileData.FileTitle;
+        sharedResourceToUpdate.FileDescription = fileData.FileDescription;
+
+        if (fileData.FileDetails != null)
         {
-            throw;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await fileData.FileDetails.CopyToAsync(memoryStream);
+                sharedResourceToUpdate.FileData = memoryStream.ToArray();
+            }
         }
+
+        // Save changes
+        _context.SharedResources.Update(sharedResourceToUpdate);
+        await _context.SaveChangesAsync();
+
+        return sharedResourceToUpdate;
     }
-
 
     public async Task DeleteSharedResourceAsync(int id)
     {
-        var sharedResource = await _Context.SharedResources.FindAsync(id);
-        if (sharedResource != null)
+        var sharedResource = await _context.SharedResources.FindAsync(id);
+
+        if (sharedResource == null)
         {
-            _Context.SharedResources.Remove(sharedResource);
-            await _Context.SaveChangesAsync();
+            throw new KeyNotFoundException("Shared resource not found");
+        }
+
+        _context.SharedResources.Remove(sharedResource);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Failed to delete shared resource: {ex.Message}");
         }
     }
-
-    public async Task<String> DownloadFileById(int Id)
+    public async Task<string> DownloadFileById(int id)
     {
         try
         {
-            var file = await _Context.SharedResources.FindAsync(Id);
-
-            if (file == null)
+            var sharedResource = await _context.SharedResources.FindAsync(id);
+            if (sharedResource == null)
             {
-                // Handle the case when the file is not found
-                return "File not found";
+                throw new ArgumentException("Shared resource not found");
             }
 
-            var content = new System.IO.MemoryStream(file.FileData);
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources/FileDownloaded");
+            var fileName = sharedResource.FileName;
+            var fileData = sharedResource.FileData;
 
-            // Create the directory if it does not exist
+            // Create a unique file name for the temporary file
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + fileName;
+
+            // Get the directory path for storing the temporary file
+            var directoryPath = Path.Combine(_environment.WebRootPath, "temp");
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
 
-            var filePath = Path.Combine(directoryPath, file.FileName);
+            var filePath = Path.Combine(directoryPath, uniqueFileName);
+            using (var stream = new MemoryStream(fileData))
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await stream.CopyToAsync(fileStream);
+            }
 
-            await CopyStream(content, filePath);
-             return filePath;
+            var hostUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
+            var fileUrlC = Path.Combine(hostUrl, "temp");
+            var fileUrl = Path.Combine(fileUrlC, uniqueFileName);
+
+            return fileUrl;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            throw new Exception($"Error downloading file: {ex.Message}");
         }
     }
-
 
     private FileType GetFileType(IFormFile fileData)
     {
         var extension = Path.GetExtension(fileData.FileName);
 
-            if (ExtensionMap.ContainsKey(extension))
-            {
-                return ExtensionMap[extension];
-            }
+        if (ExtensionMap.ContainsKey(extension))
+        {
+            return ExtensionMap[extension];
+        }
 
-            // default or unknown type
-            return FileType.Document;
+        // default or unknown type
+        return FileType.Document;
     }
 
     private async Task<byte[]> ReadFileDataAsync(IFormFile fileData)
@@ -174,15 +196,15 @@ public class SharedResourceRepository : ISharedResourceRepository
             await stream.CopyToAsync(fileStream);
         }
     }
-private static Dictionary<string, FileType> ExtensionMap = 
-  new Dictionary<string, FileType>()
-{
+    private static Dictionary<string, FileType> ExtensionMap =
+      new Dictionary<string, FileType>()
+    {
    {".jpg", FileType.Image},
-   {".png", FileType.Image}, 
+   {".png", FileType.Image},
    {".pdf", FileType.Document},
    {".mp4", FileType.Video},
    {".mp3", FileType.Audio},
-   {".exe", FileType.Software},  
+   {".exe", FileType.Software},
    {".zip", FileType.Archive}
-};
+    };
 }

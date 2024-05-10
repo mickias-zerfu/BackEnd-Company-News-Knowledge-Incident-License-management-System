@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
+ 
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Core.Entities
 {
@@ -14,6 +12,7 @@ namespace Core.Entities
         public DateTime UpdatedAt { get; set; }
         public int NewsId { get; set; }
         [ForeignKey("NewsId")]
+         [JsonIgnore] 
         public News? News { get; set; }
 
     }

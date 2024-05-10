@@ -1,6 +1,7 @@
 
 using Core.Entities;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,16 +9,21 @@ namespace FileUpload.Services
 {
     public class FileService : IFileService
     {
-        private readonly StoreContext _Context;
+        private readonly StoreContext _context;
 
-        public FileService(StoreContext context)
+        private readonly IWebHostEnvironment _environment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public FileService(StoreContext context, IWebHostEnvironment environment, IHttpContextAccessor httpContextAccessor)
         {
-            this._Context = context;
+            _context = context;
+            _environment = environment;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<FileDetails> PostFileAsync(IFormFile fileData)
         {
-            using (var transaction = await _Context.Database.BeginTransactionAsync())
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
@@ -27,8 +33,8 @@ namespace FileUpload.Services
                         fileData.CopyTo(stream);
                         fileDetails.FileData = stream.ToArray();
                     }
-                    var result = _Context.FileDetails.Add(fileDetails);
-                    await _Context.SaveChangesAsync();
+                    var result = _context.FileDetails.Add(fileDetails);
+                    await _context.SaveChangesAsync();
 
                     return fileDetails;
                 }
@@ -57,9 +63,9 @@ namespace FileUpload.Services
                         // fileDetails.FileData = stream.ToArray();
                     }
 
-                    var result = _Context.FileDetails.Add(fileDetails);
+                    var result = _context.FileDetails.Add(fileDetails);
                 }
-                await _Context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -71,7 +77,7 @@ namespace FileUpload.Services
         {
             try
             {
-                var file = _Context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
+                var file = _context.FileDetails.Where(x => x.ID == Id).FirstOrDefaultAsync();
 
                 var content = new System.IO.MemoryStream(file.Result.FileData);
                 var path = Path.Combine(
@@ -97,26 +103,27 @@ namespace FileUpload.Services
 
         private FileDetails SaveFile(IFormFile file)
         {
- 
-            var folderName = "Images/new"; 
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(folderName, fileName);             
-            var fullPath = Path.Combine("wwwroot", filePath);
-    // Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-             using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
 
+            var folderName = "Images/new";
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(folderName, fileName);
+            var fullPath = Path.Combine("wwwroot", filePath);
+            // Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            var hostUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
             var fileDetails = new FileDetails
             {
                 FileName = fileName,
-                FileUrl = Path.Combine("http://localhost:5195",filePath),
+                FileUrl = Path.Combine(hostUrl, filePath),
                 FileType = GetFileType(file)
-            };  
+            };
             return fileDetails;
         }
-        
+
         private FileType GetFileType(IFormFile file)
         {
             var extension = Path.GetExtension(file.FileName);

@@ -1,11 +1,13 @@
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class SharedResourceController : ControllerBase
@@ -33,6 +35,7 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<SharedResource>>> GetSharedResources()
         {
             var sharedResources = await _repository.GetSharedResourcesAsync();
+            
             return Ok(sharedResources);
         }
 
@@ -45,10 +48,7 @@ namespace API.Controllers
             }
 
             try
-            {
-                // var createdSharedResource = await _repository.CreateSharedResourceAsync(fileDetails.SharedResource, fileDetails.FileDetails);
-                // return CreatedAtAction(nameof(GetSharedResourceById), new { id = createdSharedResource.Id }, createdSharedResource);
-
+            { 
                 await _repository.CreateSharedResourceAsync(fileDetails);
                 return Ok();
             }
@@ -77,25 +77,25 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("DownloadFile/{id}")]
-        public async Task<ActionResult> DownloadFile(int id)
-        {
-            if (id < 0)
+            [HttpGet("DownloadFile/{id}")]
+            public async Task<ActionResult> DownloadFile(int id)
             {
-                return BadRequest();
-            }
+                if (id < 0)
+                {
+                    return BadRequest();
+                }
 
-            try
-            {
-                string filePath = await _repository.DownloadFileById(id);
-                 return Ok(new { FilePath = filePath });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while downloading the file: {ex.Message}");
-            }
+                try
+                {
+                    string filePath = await _repository.DownloadFileById(id);
+                    return Ok(new { FilePath = filePath });
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"An error occurred while downloading the file: {ex.Message}");
+                }
 
-        }
+            }
 
 
     }

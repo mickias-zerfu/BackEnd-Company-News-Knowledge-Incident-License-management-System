@@ -13,8 +13,9 @@ namespace Core.Entities
         public string? FileTitle { get; set; }
         public string? FileDescription { get; set; }
         public string? FileName { get; set; }
-        public byte[]? FileData { get; set; } 
-        public FileType FileType { get; set; }
+        public byte[]? FileData { get; set; }         
+        public FileType FileType { get; set; }       
+        public string? FileUrl { get; set; }
         public string? Created_at { get; set; }
         public string? Updated_at { get; set; }
  

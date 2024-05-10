@@ -11,8 +11,6 @@ namespace Core.Entities
         
         public string? FileTitle { get; set; }
         public string? FileDescription { get; set; }
-        public IFormFile? FileDetails { get; set; } 
-        public FileType FileType { get; set; } 
-        
+        public IFormFile? FileDetails { get; set; }  
     }
 }
