@@ -57,6 +57,27 @@ namespace API.Controllers.AppUser
             };
         }
 
+        //[Authorize]
+        [HttpPost("subAdminById")]
+        public async Task<ActionResult<UserDto>> getSingleSubAdmin([FromBody] StatusUpdateRequest request)
+        {
+            _logger.LogInformation("Login attempt for user", request.Id);
+            var user = await _userManager.FindByIdAsync(request.Id);
+            _logger.LogInformation("Login attempt for user rer", user);
+            if (user == null)
+            {
+                return null;
+            }
+            return new UserDto
+            {
+                DisplayName = user.DisplayName, 
+                Email = user.Email,
+                Status = user.Status,
+                RoleId = user.RoleId,
+                Access = user.Access,
+                Message = "Found User Successfully",
+            };
+        }
         [Authorize]
         [HttpGet("getSubAdmin")]
         public async Task<ActionResult<List<UserDto>>> GetSubAdmin()
@@ -176,12 +197,11 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to update SubAdmin" });
         }
-
         [Authorize]
         [HttpPost("inactiveSubadmin")]
-        public async Task<ActionResult<UserDto>> InactiveSubAdmin(string id)
+        public async Task<ActionResult<UserDto>> InactiveSubAdmin([FromBody] StatusUpdateRequest request)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(request.Id);
             if (user == null) return NotFound();
 
             user.Status = 0;
@@ -195,11 +215,12 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to inactivate subadmin" });
         }
+
         [Authorize]
         [HttpPost("activeSubadmin")]
-        public async Task<ActionResult<UserDto>> ActiveSubAdmin(string id)
+        public async Task<ActionResult<UserDto>> ActiveSubAdmin([FromBody] StatusUpdateRequest request)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(request.Id);
             if (user == null) return NotFound();
 
             user.Status = 1;
@@ -215,9 +236,9 @@ namespace API.Controllers.AppUser
         }
         [Authorize]
         [HttpDelete("deleteSubAdmin")]
-        public async Task<IActionResult> DeleteSubAdmin(string id)
+        public async Task<IActionResult> DeleteSubAdmin([FromBody] StatusUpdateRequest request)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(request.Id);
 
             if (user == null)
             {
