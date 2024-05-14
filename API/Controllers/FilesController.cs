@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileUpload.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase

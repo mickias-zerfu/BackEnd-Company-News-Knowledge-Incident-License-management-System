@@ -9,6 +9,7 @@ namespace Core.Interfaces.auth
 {
     public interface IActiveDirectoryService
     {
+        Task<DomainDto> GetCurrentUser(string name);
         Task<DomainDto> IsValidUser(string username, string password);
     }
 }

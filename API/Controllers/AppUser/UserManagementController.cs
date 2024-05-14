@@ -1,8 +1,10 @@
 using API.Dtos;
 using Core.Entities.AppUser;
 using Core.Interfaces.auth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI.Common;
+using System.Security.Claims;
 
 namespace API.Controllers.AppUser
 {
@@ -36,5 +38,27 @@ namespace API.Controllers.AppUser
                 return Unauthorized(); // Or any other appropriate status code
             }
         }
+
+        [HttpGet("getDomainUser")]
+        public async Task<ActionResult<DomainDto>> GetLoginUser()
+        { 
+            var name = HttpContext.User?.Identity?.Name;
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            if (string.IsNullOrEmpty(name))
+            {
+                return BadRequest("Username not found in the claims");
+            }
+            var result = await _authService.GetCurrentUser(name);
+            if (result.Status == 1)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+
+        }
     }
 }
+ 

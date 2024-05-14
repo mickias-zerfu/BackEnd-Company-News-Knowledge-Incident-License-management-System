@@ -18,6 +18,7 @@ namespace API.Controllers
 
         }
 
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<List<News>>> GetNewses()
         {

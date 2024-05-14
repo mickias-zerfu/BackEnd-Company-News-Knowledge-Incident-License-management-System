@@ -34,14 +34,17 @@ namespace API.Controllers.AppUser
         {
             return "secret stuff";
         }
-
+         
         [Authorize]
         [HttpGet("getSingleSubAdmin")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             var user = await _userManager.FindByEmailAsync(email);
-
+            if(user == null)
+            {
+                return null;
+            }
             return new UserDto
             {
                 DisplayName = user.DisplayName,
@@ -68,6 +71,7 @@ namespace API.Controllers.AppUser
                 return NotFound();
             }
         }
+
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
@@ -101,7 +105,6 @@ namespace API.Controllers.AppUser
                 Message = "Login Successfully",
             };
         }
-
 
 
         [Authorize]
