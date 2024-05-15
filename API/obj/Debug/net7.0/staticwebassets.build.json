@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sgLltyuqnVQzO+Y/tVvh6tNpTwbqRtiOMenZUkuZA1k=",
+  "Hash": "Q9GDTTgAHFJ4Eu8pb0G3ArvT8uJhUszKk6A0TP6G2T8=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -378,6 +378,25 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\d5b3d7d1-aa0e-4ebf-a4e9-c295e797096b.PNG"
     },
     {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\e0be0e1a-eff1-4319-bf47-c98a9213432f.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/e0be0e1a-eff1-4319-bf47-c98a9213432f.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\e0be0e1a-eff1-4319-bf47-c98a9213432f.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\e3a8706d-033e-43ad-928c-2698bd96bf25.txt",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -414,6 +433,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\e4b089da-ead1-46d9-9684-108f082816a7.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\f93bf95e-fef0-4107-a91d-90e4336ce326.cs",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/f93bf95e-fef0-4107-a91d-90e4336ce326.cs",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\f93bf95e-fef0-4107-a91d-90e4336ce326.cs"
     },
     {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\new\\24308e9a-916b-4393-a3b0-f8c2993b0de8.png",

@@ -92,28 +92,26 @@ namespace API.Controllers.AppUser
                 return NotFound();
             }
         }
-
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            _logger.LogInformation("Login attempt for email: {Email}", loginDto.Email);
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
-
-            // logger.LogInformation(user.DisplayName);
             if (user == null)
             {
-                _logger.LogWarning("User not found for email: {Email}", loginDto.Email);
-                return Unauthorized();
+                return Unauthorized(new { Message = "Invalid email or password" });
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded)
             {
-                _logger.LogWarning("Login failed for email: {Email}", loginDto.Email);
-                return Unauthorized();
+                return Unauthorized(new { Message = "Invalid email or password" });
             }
-            _logger.LogInformation("Login successful for email: {Email}", loginDto.Email);
+
+            if (result.Succeeded && user.Status == 0)
+            {
+                return Unauthorized(new { Message = "Your account has been deactivated. Please contact the administrator." });
+            }
 
             return new UserDto
             {
@@ -126,6 +124,37 @@ namespace API.Controllers.AppUser
                 Message = "Login Successfully",
             };
         }
+        //[HttpPost("login")]
+        //public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        //{ 
+        //    var user = await _userManager.FindByEmailAsync(loginDto.Email); 
+        //    if (user == null)
+        //    { 
+        //        return Unauthorized();
+        //    }
+
+        //    var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+        //    if (!result.Succeeded)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //    if (result.Succeeded && user.Status==0)
+        //    {
+        //        return Unauthorized();
+        //    }
+
+        //    return new UserDto
+        //    {
+        //        DisplayName = user.DisplayName,
+        //        Token = _subAdminService.CreateToken(user),
+        //        Email = user.Email,
+        //        Status = user.Status,
+        //        RoleId = user.RoleId,
+        //        Access = user.Access,
+        //        Message = "Login Successfully",
+        //    };
+        //}
 
 
         [Authorize]
@@ -174,15 +203,22 @@ namespace API.Controllers.AppUser
         }
 
         [Authorize]
-        [HttpPut("updateSubAdmin")]
-        public async Task<ActionResult<UserDto>> UpdateSubAdmin(RegisterDto subAdmin)
+        [HttpPut("updateSubAdmin/{id}")]
+        public async Task<ActionResult<UserDto>> UpdateSubAdmin(string id, RegisterDto subAdmin)
         {
-            var user = await _userManager.FindByEmailAsync(subAdmin.Email);
+            var user = await _userManager.FindByIdAsync(id);
+            if (CheckEmailExistsAsync(subAdmin.Email).Result.Value && user.Email != subAdmin.Email)
+            {
+                return new BadRequestObjectResult(
+                    new { Errors = new[] { "Email address is in use" } });
+            }
             if (user == null) return NotFound();
-
+            
             user.DisplayName = subAdmin.DisplayName;
             user.Email = subAdmin.Email;
-            user.UserName = subAdmin.Email;
+            user.UserName = subAdmin.Email; 
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, subAdmin.Password); 
             user.Status = 1;
             user.Access = subAdmin.Access;
             user.Updated_at = DateTime.Now;
@@ -235,7 +271,7 @@ namespace API.Controllers.AppUser
             return BadRequest(new { message = "Failed to activate subadmin" });
         }
         [Authorize]
-        [HttpDelete("deleteSubAdmin")]
+        [HttpPost("deleteSubAdmin")]
         public async Task<IActionResult> DeleteSubAdmin([FromBody] StatusUpdateRequest request)
         {
             var user = await _userManager.FindByIdAsync(request.Id);
