@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileUpload.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase
@@ -20,6 +20,8 @@ namespace FileUpload.Controllers
         }
 
         [HttpPost("PostSingleFile")]
+
+        [Authorize(Roles = "Admin,SubAdmin")]
         public async Task<ActionResult> PostSingleFile([FromForm] FileUploadModel fileDetails)
         {
             if (fileDetails == null)
@@ -48,6 +50,8 @@ namespace FileUpload.Controllers
         /// <param name="file"></param>
         /// <returns></returns>
         [HttpPost("PostMultipleFile")]
+
+        [Authorize(Roles = "Admin,SubAdmin")]
         public async Task<ActionResult> PostMultipleFile([FromForm] List<FileUploadModel> fileDetails)
         {
             if (fileDetails == null)

@@ -15,10 +15,11 @@ namespace Infrastructure.Data.config
              
         builder.HasKey(sr => sr.Id);
         builder.Property(sr => sr.FileTitle).IsRequired();
-        builder.Property(sr => sr.FileName).IsRequired();
+        builder.Property(sr => sr.FileName).IsRequired()
+            .HasMaxLength(30); 
         builder.Property(sr => sr.FileDescription).IsRequired();
         builder.Property(sr => sr.FileType);
-        builder.Property(sr => sr.FileData);
+        builder.Property(sr => sr.FilePath);
         builder.Property(sr=>sr.FileUrl);
         builder.Property(sr => sr.Created_at);
         builder.Property(sr => sr.Updated_at);

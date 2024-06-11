@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Data.Migrations
+namespace Infrastructure.Migrations.Store
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240423114209_InitialCreate")]
+    [Migration("20240611084155_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,27 +24,71 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.AppUser.SubAdmin", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Access")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Created_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedUserName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("RoleId")
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("SpecificRoleId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Updated_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -91,8 +135,8 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("varchar(80)")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("FileName");
 
                     b.Property<int>("FileType")
@@ -210,15 +254,16 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Created_at")
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("FileData")
-                        .HasColumnType("longblob");
-
                     b.Property<string>("FileDescription")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("FileName")
                         .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("FilePath")
                         .HasColumnType("longtext");
 
                     b.Property<string>("FileTitle")

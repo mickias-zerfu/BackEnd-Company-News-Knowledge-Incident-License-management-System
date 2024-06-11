@@ -1,11 +1,12 @@
  using Core.Entities.AppUser;
 using Infrastructure.Data.Configurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Identity
 {
-    public class AppIdentityDbContext : IdentityDbContext<SubAdmin>
+    public class AppIdentityDbContext : IdentityDbContext<SubAdmin, IdentityRole, string>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options)
         {

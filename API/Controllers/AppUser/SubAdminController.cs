@@ -2,6 +2,7 @@ using System.Security.Claims;
 using API.Dtos;
 using Core.Entities.AppUser;
 using Core.Interfaces.auth;
+using Infrastructure.Data.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +20,16 @@ namespace API.Controllers.AppUser
         private readonly UserManager<SubAdmin> _userManager;
         private readonly SignInManager<SubAdmin> _signInManager;
         private readonly ILogger<SubAdminController> _logger;
+        private readonly UserRoleService _userRoleService;
 
         public SubAdminController(UserManager<SubAdmin> userManager, SignInManager<SubAdmin> signInManager,
-            ILogger<SubAdminController> logger, ISubAdminService subAdminService)
+            ILogger<SubAdminController> logger, ISubAdminService subAdminService, UserRoleService userRoleService)
         {
             _subAdminService = subAdminService;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _userRoleService = userRoleService;
         }
         [HttpGet("testauth")]
         [Authorize]
@@ -48,10 +51,10 @@ namespace API.Controllers.AppUser
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _subAdminService.CreateToken(user),
+                Token = await _subAdminService.CreateToken(user),
                 Email = user.Email,
                 Status = user.Status,
-                RoleId = user.RoleId,
+                RoleId = user.SpecificRoleId,
                 Access = user.Access,
                 Message = "Found User Successfully",
             };
@@ -73,12 +76,13 @@ namespace API.Controllers.AppUser
                 DisplayName = user.DisplayName, 
                 Email = user.Email,
                 Status = user.Status,
-                RoleId = user.RoleId,
+                RoleId = user.SpecificRoleId,
                 Access = user.Access,
                 Message = "Found User Successfully",
             };
         }
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("getSubAdmin")]
         public async Task<ActionResult<List<UserDto>>> GetSubAdmin()
         {
@@ -116,10 +120,10 @@ namespace API.Controllers.AppUser
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _subAdminService.CreateToken(user),
+                Token = await _subAdminService.CreateToken(user),
                 Email = user.Email,
                 Status = user.Status,
-                RoleId = user.RoleId,
+                RoleId = user.SpecificRoleId,
                 Access = user.Access,
                 Message = "Login Successfully",
             };
@@ -157,7 +161,8 @@ namespace API.Controllers.AppUser
         //}
 
 
-        [Authorize]
+
+        [Authorize(Roles = "Admin,SubAdmin,user")]
         [HttpPost("insert")]
         public async Task<ActionResult<UserDto>> InsertSubAdmin(RegisterDto subAdmin)
         {
@@ -172,7 +177,7 @@ namespace API.Controllers.AppUser
                 DisplayName = subAdmin.DisplayName,
                 Email = subAdmin.Email,
                 UserName = subAdmin.Email,
-                RoleId = 1,
+                SpecificRoleId = 1,
                 Status = 1,
                 Access = subAdmin.Access,
                 Created_at = DateTime.Now,
@@ -188,21 +193,31 @@ namespace API.Controllers.AppUser
                 return BadRequest(400);
             }
 
-            _logger.LogInformation("Login successful for email: {Email}", subAdmin.Email);
+            // Assign the "SubAdmin" role to the newly created user
+            var roleAssignmentResult = await _userRoleService.AssignRoleToUserAsync(user.Id, "SubAdmin");
+
+            if (!roleAssignmentResult)
+            {
+                _logger.LogWarning("Role assignment failed for email: {Email}", subAdmin.Email);
+                return BadRequest(new { Errors = new[] { "Failed to assign role to the user" } });
+            }
+
+                _logger.LogInformation("Login successful for email: {Email}", subAdmin.Email);
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _subAdminService.CreateToken(user),
+                Token = await _subAdminService.CreateToken(user),
                 Email = user.Email,
                 Status = user.Status,
-                RoleId = user.RoleId,
+                RoleId = user.SpecificRoleId,
                 Access = user.Access,
                 Message = "Account Created Successfully",
             };
 
         }
 
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("updateSubAdmin/{id}")]
         public async Task<ActionResult<UserDto>> UpdateSubAdmin(string id, RegisterDto subAdmin)
         {
@@ -233,7 +248,8 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to update SubAdmin" });
         }
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("inactiveSubadmin")]
         public async Task<ActionResult<UserDto>> InactiveSubAdmin([FromBody] StatusUpdateRequest request)
         {
@@ -252,7 +268,8 @@ namespace API.Controllers.AppUser
             return BadRequest(new { message = "Failed to inactivate subadmin" });
         }
 
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("activeSubadmin")]
         public async Task<ActionResult<UserDto>> ActiveSubAdmin([FromBody] StatusUpdateRequest request)
         {
@@ -270,7 +287,8 @@ namespace API.Controllers.AppUser
 
             return BadRequest(new { message = "Failed to activate subadmin" });
         }
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("deleteSubAdmin")]
         public async Task<IActionResult> DeleteSubAdmin([FromBody] StatusUpdateRequest request)
         {

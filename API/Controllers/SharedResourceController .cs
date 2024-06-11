@@ -1,9 +1,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc; 
 
 namespace API.Controllers
 {
@@ -20,6 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,SubAdmin,User")]
         public async Task<ActionResult<SharedResource>> GetSharedResourceById(int id)
         {
             var sharedResource = await _repository.GetSharedResourceByIdAsync(id);
@@ -30,16 +29,18 @@ namespace API.Controllers
 
             return sharedResource;
         }
-
+         
         [HttpGet]
+        [Authorize(Roles = "Admin,SubAdmin,User")]
         public async Task<ActionResult<IReadOnlyList<SharedResource>>> GetSharedResources()
         {
             var sharedResources = await _repository.GetSharedResourcesAsync();
             
             return Ok(sharedResources);
         }
-
+         
         [HttpPost]
+        [Authorize(Roles = "Admin,SubAdmin")]
         public async Task<ActionResult<SharedResource>> CreateSharedResource([FromForm] SharedResourceUploadModel fileDetails)
         {
             if (fileDetails == null)
@@ -52,6 +53,10 @@ namespace API.Controllers
                 await _repository.CreateSharedResourceAsync(fileDetails);
                 return Ok();
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -59,43 +64,56 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,SubAdmin")]
         public async Task<ActionResult<SharedResource>> UpdateSharedResource(int id, [FromForm] SharedResourceUploadModel sharedResource)
         {
-            // if (id != sharedResource.Id)
-            // {
-            //     return BadRequest();
-            // }
+            if (sharedResource == null)
+            {
+                return BadRequest();
+            }
 
-            var updatedSharedResource = await _repository.UpdateSharedResourceAsync(id, sharedResource);
-            return Ok(updatedSharedResource);
+            try
+            {
+                var updatedSharedResource = await _repository.UpdateSharedResourceAsync(id, sharedResource);
+                return Ok(updatedSharedResource);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSharedResource(int id)
         {
             await _repository.DeleteSharedResourceAsync(id);
             return NoContent();
         }
 
-            [HttpGet("DownloadFile/{id}")]
-            public async Task<ActionResult> DownloadFile(int id)
+        [HttpGet("DownloadFile/{id}")]
+        [Authorize(Roles = "Admin,SubAdmin,User")]
+        public async Task<ActionResult> DownloadFile(int id)
+        {
+            if (id < 0)
             {
-                if (id < 0)
-                {
-                    return BadRequest();
-                }
-
-                try
-                {
-                    string filePath = await _repository.DownloadFileById(id);
-                    return Ok(new { FilePath = filePath });
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occurred while downloading the file: {ex.Message}");
-                }
-
+                return BadRequest();
             }
+
+            try
+            {
+                string fileUrl = await _repository.DownloadFileById(id);
+                return Ok(new { FileUrl = fileUrl });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while downloading the file: {ex.Message}");
+            }
+        }
 
 
     }

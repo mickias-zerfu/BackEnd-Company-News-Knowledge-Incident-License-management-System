@@ -13,7 +13,15 @@ namespace FileUpload.Services
 
         private readonly IWebHostEnvironment _environment;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private static readonly Dictionary<string, FileType> AllowedFileExtensions = new Dictionary<string, FileType>()
+    {
+        {".jpg", FileType.Image},
+        {".png", FileType.Image},
+        {".pdf", FileType.Document},
+        {".mp4", FileType.Video},
+        {".mp3", FileType.Audio},
+        {".zip", FileType.Archive}
+    };
         public FileService(StoreContext context, IWebHostEnvironment environment, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -27,6 +35,15 @@ namespace FileUpload.Services
             {
                 try
                 {
+                    var extension = Path.GetExtension(fileData.FileName).ToLowerInvariant();
+                    if (!AllowedFileExtensions.ContainsKey(extension))
+                    {
+                        throw new InvalidOperationException("Unsupported file type.");
+                    }
+                    if (fileData.FileName.Length >= 25)
+                    {
+                        throw new InvalidOperationException("FileName length must be letha than 25 chacter.");
+                    }
                     var fileDetails = SaveFile(fileData);
                     using (var stream = new MemoryStream())
                     {

@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Identity.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreateIdentity : Migration
@@ -37,7 +37,7 @@ namespace Infrastructure.Identity.Migrations
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     DisplayName = table.Column<string>(type: "longtext", nullable: false),
                     Access = table.Column<string>(type: "longtext", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    SpecificRoleId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),

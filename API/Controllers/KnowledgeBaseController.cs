@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
+
+    [Authorize(Roles = "Admin,SubAdmin")]
     [ApiController]
     [Route("api/[controller]")]
     public class KnowledgeBaseController : ControllerBase

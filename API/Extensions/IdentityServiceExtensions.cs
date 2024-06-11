@@ -1,25 +1,26 @@
-using System.Text;
 using Core.Entities.AppUser;
 using Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MySql.EntityFrameworkCore.Extensions;
+using System.Text;
 
 namespace API.Extensions
 {
     public static class IdentityServiceExtensions
     {
-        public static IServiceCollection AddIdentityServices(this IServiceCollection services,
-            IConfiguration config)
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
         {
+            var builder = services.AddIdentityCore<SubAdmin>(options =>
+            {
+                // Add any identity options here
+            });
 
-            var builder = services.AddIdentityCore<SubAdmin>();
-            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<AppIdentityDbContext>();
+            builder.AddRoleManager<RoleManager<IdentityRole>>();
             builder.AddSignInManager<SignInManager<SubAdmin>>();
-            
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -33,7 +34,7 @@ namespace API.Extensions
                     };
                 });
 
-             return services;
+            return services;
         }
     }
 }

@@ -18,7 +18,8 @@ namespace API.Controllers
 
         }
 
-        //[Authorize]
+
+        [Authorize(Roles = "Admin,SubAdmin,User")]
         [HttpGet]
         public async Task<ActionResult<List<News>>> GetNewses()
         {
@@ -26,6 +27,7 @@ namespace API.Controllers
             return Ok(news);
         }
 
+        [Authorize(Roles = "Admin,SubAdmin,User")]
         [HttpGet("{id}")]
         public async Task<ActionResult<News>> GetNewsById(int id)
         {
@@ -34,6 +36,7 @@ namespace API.Controllers
 
 
 
+        [Authorize(Roles = "Admin,SubAdmin")]
         [HttpPost]
         public async Task<ActionResult<News>> CreateNews(News news)
         {
@@ -41,6 +44,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetNewsById), new { id = createdNews.Id }, createdNews);
         }
 
+        [Authorize(Roles = "Admin,SubAdmin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<News>> UpdateNews(int id, News news)
         {
@@ -67,6 +71,7 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "Admin,SubAdmin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNews(int id)
         {

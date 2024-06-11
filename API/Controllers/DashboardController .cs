@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Authorize]
+
+    [Authorize(Roles = "Admin,SubAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DashboardController :ControllerBase

@@ -65,6 +65,7 @@ namespace Infrastructure.Data.Auth
             {
                 new Claim(ClaimTypes.Email, user?.EmailAddress),
                 new Claim(ClaimTypes.Name, user?.UserPrincipalName),
+                new Claim(ClaimTypes.Role, "User")
 
         }; 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
@@ -72,7 +73,7 @@ namespace Infrastructure.Data.Auth
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddMinutes(10),
                 SigningCredentials = creds,
                 Issuer = _config["Token:Issuer"]
             };

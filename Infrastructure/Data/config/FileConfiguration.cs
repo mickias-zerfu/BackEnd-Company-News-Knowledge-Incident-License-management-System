@@ -23,7 +23,7 @@ namespace Infrastructure.Data.config
         builder.Property(e => e.FileName)
             .HasColumnName("FileName")
             .IsRequired()
-            .HasMaxLength(80); // Configure the FileName property
+            .HasMaxLength(30); // Configure the FileName property
 
         builder.Property(e => e.FileData)
             .HasColumnName("FileData")

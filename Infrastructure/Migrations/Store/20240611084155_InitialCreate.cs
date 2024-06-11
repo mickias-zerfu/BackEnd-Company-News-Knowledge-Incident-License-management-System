@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Data.Migrations
+namespace Infrastructure.Migrations.Store
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    FileName = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
+                    FileName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false),
                     FileData = table.Column<byte[]>(type: "longblob", nullable: false),
                     FileType = table.Column<int>(type: "int", nullable: false),
                     FileUrl = table.Column<string>(type: "longtext", nullable: true)
@@ -118,8 +118,8 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     FileTitle = table.Column<string>(type: "longtext", nullable: false),
                     FileDescription = table.Column<string>(type: "longtext", nullable: false),
-                    FileName = table.Column<string>(type: "longtext", nullable: false),
-                    FileData = table.Column<byte[]>(type: "longblob", nullable: true),
+                    FileName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false),
+                    FilePath = table.Column<string>(type: "longtext", nullable: true),
                     FileType = table.Column<int>(type: "int", nullable: false),
                     FileUrl = table.Column<string>(type: "longtext", nullable: true),
                     Created_at = table.Column<string>(type: "longtext", nullable: true),
@@ -153,13 +153,27 @@ namespace Infrastructure.Data.Migrations
                 name: "SubAdmin",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false),
-                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    DisplayName = table.Column<string>(type: "longtext", nullable: false),
                     Access = table.Column<string>(type: "longtext", nullable: true),
+                    SpecificRoleId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UserName = table.Column<string>(type: "longtext", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "longtext", nullable: true),
+                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    NormalizedEmail = table.Column<string>(type: "longtext", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     PasswordHash = table.Column<string>(type: "longtext", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

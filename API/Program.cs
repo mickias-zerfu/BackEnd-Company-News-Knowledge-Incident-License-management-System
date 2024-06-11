@@ -46,6 +46,7 @@ builder.Services.AddSwaggerDocumentation();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IActiveDirectoryService, ActiveDirectoryService>();
 builder.Services.AddScoped<ISubAdminService, SubAdminService>();
+builder.Services.AddScoped<UserRoleService>();
 
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IKnowledgeBaseRepository, KnowledgeBaseRepository>();
@@ -81,14 +82,16 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
+        //builder.WithOrigins("https://s-m-bwm-001.zemenbank.local:6060")
+        //       .AllowAnyMethod()
+        //       .AllowAnyHeader();
         builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
-    app.UseCors();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 // Configure the HTTP request pipeline.
@@ -96,7 +99,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseCors();
     app.UseStaticFiles();
-
     app.UseSwaggerDocumentation();
 }
 
@@ -104,10 +106,11 @@ if (app.Environment.IsDevelopment())
 app.UseSwaggerDocumentation();
 app.UseStaticFiles();
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();  
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors();
 
 app.MapControllers();
 
@@ -121,11 +124,17 @@ try
     var context = services.GetRequiredService<StoreContext>();
     await context.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
+     
+   
+    //await SeedData.Initialize(services, userManager, roleManager);
+
 
     var userManager = services.GetRequiredService<UserManager<SubAdmin>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var identityContext = services.GetRequiredService<AppIdentityDbContext>();
     await identityContext.Database.MigrateAsync();
-    await AppIdentityDbContextSeed.SeedUsersAsync(userManager, logger);
+    //await AppIdentityDbContextSeed.SeedUsersAsync(userManager, logger);
+    await AppIdentityDbContextSeed.SeedUsersAndRolesAsync(userManager, roleManager, logger);
 }
 catch (Exception ex)
 {

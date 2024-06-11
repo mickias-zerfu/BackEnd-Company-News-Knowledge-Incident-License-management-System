@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configurations
 
             builder.Property(c => c.Id).IsRequired();
             builder.Property(c => c.Email).IsRequired();
-            builder.Property(c => c.RoleId).IsRequired();
+            builder.Property(c => c.SpecificRoleId).IsRequired();
             builder.Property(c => c.DisplayName).IsRequired();
             builder.Property(c => c.PasswordHash).IsRequired();
                builder.Property(c => c.Access)

@@ -6,7 +6,7 @@ namespace Core.Interfaces.auth
     {
 
 
-        string CreateToken(SubAdmin user);
+         Task<string> CreateToken(SubAdmin user);
         // Task<bool> InsertSubAdminAsync(SubAdmin subAdmin);
         // Task<List<SubAdmin>> GetSubAdminsAsync(SubAdminQueryParameters queryParameters);
         // Task<SubAdmin> GetSingleSubAdminAsync(string userId);
