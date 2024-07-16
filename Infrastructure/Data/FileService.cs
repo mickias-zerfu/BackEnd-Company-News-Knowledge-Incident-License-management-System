@@ -122,7 +122,7 @@ namespace FileUpload.Services
         {
 
             var folderName = "Images/new";
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var fileName = Guid.NewGuid().ToString().Substring(0,24) + Path.GetExtension(file.FileName);
             var filePath = Path.Combine(folderName, fileName);
             var fullPath = Path.Combine("wwwroot", filePath);
             // Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

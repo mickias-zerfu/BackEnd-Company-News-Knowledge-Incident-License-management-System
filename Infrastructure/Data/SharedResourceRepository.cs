@@ -19,6 +19,8 @@ public class SharedResourceRepository : ISharedResourceRepository
         {".pdf", FileType.Document},
         {".mp4", FileType.Video},
         {".mp3", FileType.Audio},
+        {".xlsx", FileType.Document},
+        {".docx", FileType.Document},
         {".zip", FileType.Archive} 
     };
 
@@ -233,6 +235,8 @@ public class SharedResourceRepository : ISharedResourceRepository
    {".png", FileType.Image},
    {".pdf", FileType.Document},
    {".mp4", FileType.Video},
+        {".xlsx", FileType.Document},
+        {".docx", FileType.Document},
    {".mp3", FileType.Audio}, 
    {".zip", FileType.Archive}
     };

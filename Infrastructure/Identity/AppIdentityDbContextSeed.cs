@@ -27,7 +27,7 @@ namespace Infrastructure.Identity
 
                 var user = new SubAdmin
                 {
-                    DisplayName = "Super Admin",
+                    DisplayName = "Super_Admin",
                     UserName = "superadmin",
                     Email = "superadmin@gmail.com",
                     SpecificRoleId = 2,
@@ -37,7 +37,7 @@ namespace Infrastructure.Identity
                     Updated_at = DateTime.Now
                 };
                  
-                var result = await userManager.CreateAsync(user, "P@ssw0rdMZ");
+                var result = await userManager.CreateAsync(user, "P@ssw0rdIB");
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
