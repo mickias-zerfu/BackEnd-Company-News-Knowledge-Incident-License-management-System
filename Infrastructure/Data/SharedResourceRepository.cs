@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 
 using Microsoft.EntityFrameworkCore;
+using Google.Protobuf;
 
 public class SharedResourceRepository : ISharedResourceRepository
 {
@@ -164,12 +165,32 @@ public class SharedResourceRepository : ISharedResourceRepository
             {
                 throw new InvalidOperationException("Unsupported file type.");
             }
+
+            if (fileData.FileDetails.FileName.Length >= 25)
+            {
+                throw new InvalidOperationException("FileName length must be lessthan than 25 chacter.");
+
+            }
             var uniqueFileName = Guid.NewGuid().ToString() + "_" + fileData.FileDetails.FileName;
-            var filePath = Path.Combine(_environment.WebRootPath, "uploads", uniqueFileName);
+            var directoryPath = Path.Combine(_environment.WebRootPath, "uploads");
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            var filePath = Path.Combine(directoryPath, uniqueFileName);
+
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await fileData.FileDetails.CopyToAsync(fileStream);
             }
+
+            sharedResourceToUpdate.FileName = fileData.FileDetails.FileName;
+            sharedResourceToUpdate.FilePath = filePath;
+            sharedResourceToUpdate.FileType = AllowedFileExtensions[extension];
+            sharedResourceToUpdate.FileUrl = Guid.NewGuid().ToString();
+            sharedResourceToUpdate.Updated_at = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
 
         }
 

@@ -80,7 +80,9 @@ namespace Infrastructure.Data.Licenses
         }
         public async Task<LicenseManager> AssignLicensesAsyncToManager(int managerId, int[] licenseIds)
         {
+            Console.WriteLine("AssignLicensesAsyncToManager");
             var licenseManager = await _context.LicenseManagers.FindAsync(managerId);
+            Console.WriteLine("licenseManager: ", licenseManager);
             if (licenseManager == null)
             {
                 throw new ArgumentException("license Manager not found.");
@@ -89,6 +91,7 @@ namespace Infrastructure.Data.Licenses
             var licenses = await _context.Licenses
                 .Where(l => licenseIds.Contains(l.Id))
                 .ToListAsync();
+            Console.WriteLine("licenses : ", licenses);
             if (licenses == null)
             {
                 throw new InvalidOperationException("No managers were found.");
@@ -99,6 +102,7 @@ namespace Infrastructure.Data.Licenses
             }
             foreach (var license in licenses)
             {
+            Console.WriteLine("licenses : ", license);
                 licenseManager.LicenseManagerLicenses.Add(new LicenseManagerLicense
                 {
                     LicenseId = managerId,
