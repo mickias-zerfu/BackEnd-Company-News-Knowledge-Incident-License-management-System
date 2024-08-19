@@ -69,7 +69,7 @@ namespace Infrastructure.Data.Licenses
                         IssuedBy = lml.License.IssuedBy,
                         ExpirationDate = lml.License.ExpirationDate
                     }).ToList()
-                }).ToListAsync(); ;
+                }).ToListAsync(); 
         }
 
         public async Task<LicenseManager> CreateLicenseManagerAsync(LicenseManager licenseManager)
@@ -78,41 +78,64 @@ namespace Infrastructure.Data.Licenses
             await _context.SaveChangesAsync();
             return licenseManager;
         }
-        public async Task<LicenseManager> AssignLicensesAsyncToManager(int managerId, int[] licenseIds)
+        public async Task<LicenseManagerDto> AssignLicensesAsyncToManager(int managerId, int[] licenseIds)
         {
-            Console.WriteLine("AssignLicensesAsyncToManager");
-            var licenseManager = await _context.LicenseManagers.FindAsync(managerId);
-            Console.WriteLine("licenseManager: ", licenseManager);
+            // Find the license manager
+            var licenseManager = await _context.LicenseManagers
+                .Include(lm => lm.LicenseManagerLicenses) // Include existing assignments
+                .FirstOrDefaultAsync(lm => lm.Id == managerId);
+
             if (licenseManager == null)
             {
-                throw new ArgumentException("license Manager not found.");
+                throw new ArgumentException("License Manager not found.");
             }
 
+            // Get the licenses to be assigned
             var licenses = await _context.Licenses
                 .Where(l => licenseIds.Contains(l.Id))
                 .ToListAsync();
-            Console.WriteLine("licenses : ", licenses);
-            if (licenses == null)
+
+            if (licenses == null || licenses.Count == 0)
             {
-                throw new InvalidOperationException("No managers were found.");
+                throw new InvalidOperationException("No licenses were found.");
             }
-            if (licenseManager.LicenseManagerLicenses == null)
-            {
-                licenseManager.LicenseManagerLicenses = new List<LicenseManagerLicense>();
-            }
+
+            // Clear existing assignments
+            licenseManager.LicenseManagerLicenses.Clear();
+
+            // Assign new licenses to the manager
             foreach (var license in licenses)
             {
-            Console.WriteLine("licenses : ", license);
                 licenseManager.LicenseManagerLicenses.Add(new LicenseManagerLicense
                 {
-                    LicenseId = managerId,
-                    LicenseManagerId = license.Id
+                    LicenseManagerId = managerId,
+                    LicenseId = license.Id
                 });
             }
 
             await _context.SaveChangesAsync();
-            return licenseManager;
-        }
+            var licenseManagerDto = new LicenseManagerDto
+            {
+                Id = licenseManager.Id,
+                FirstName = licenseManager.FirstName,
+                LastName = licenseManager.LastName,
+                Email = licenseManager.Email,
+                PhoneNumber = licenseManager.PhoneNumber,
+                Role = licenseManager.Role,
+                IsActive = licenseManager.IsActive,
+                RegistrationDate = licenseManager.RegistrationDate,
+                ProfilePictureUrl = licenseManager.ProfilePictureUrl,
+                AssignedLicenses = licenseManager.LicenseManagerLicenses
+                    .Select(lml => new License
+                    {
+                        Id = lml.License.Id,
+                        IssuedTo = lml.License.IssuedTo,
+                        IssuedBy = lml.License.IssuedBy,
+                        ExpirationDate = lml.License.ExpirationDate
+                    }).ToList()
+            };
+            return licenseManagerDto;
+        } 
         public async Task<LicenseManager> UpdateLicenseManagerAsync(LicenseManager licenseManager)
         {
             var existingLicenseManager = await _context.LicenseManagers.FindAsync(licenseManager.Id);

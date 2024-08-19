@@ -18,6 +18,8 @@ namespace Core.Entities.licenseEntity
 
         // EF Relation
         public int SoftwareProductId { get; set; }
+
+         [JsonIgnore] 
         public ICollection<LicenseManagerLicense>? LicenseManagerLicenses { get; set; }
 
     }

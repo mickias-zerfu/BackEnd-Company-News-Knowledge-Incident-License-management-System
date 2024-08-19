@@ -18,15 +18,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
+using Oracle.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-// .AddJsonOptions(options =>
-// {
-//     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-//     options.JsonSerializerOptions.MaxDepth = 32;
-// });
+builder.Services.AddControllers(); 
 builder.Services.AddEntityFrameworkMySQL()
                 .AddDbContext<StoreContext>(options =>
                 {
@@ -38,6 +34,18 @@ builder.Services.AddEntityFrameworkMySQL()
                            {
                                options.UseMySQL(builder.Configuration.GetConnectionString("IdentityConnection"));
                            });
+builder.Services.AddDbContext<TransactionMonitoringContext>(options =>
+{
+    options.UseOracle(builder.Configuration.GetConnectionString("TransactionMonitoringConnection"));
+});
+builder.Services.AddControllers()
+   .AddJsonOptions(options =>
+   {
+       options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve; 
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
+
 
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();

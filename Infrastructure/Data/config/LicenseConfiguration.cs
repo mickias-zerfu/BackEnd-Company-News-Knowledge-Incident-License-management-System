@@ -12,25 +12,49 @@ namespace Infrastructure.Data.config
             builder.HasKey(l => l.Id);
 
             // Properties
-            builder.Property(l => l.IssuedTo).IsRequired();
-            builder.Property(l => l.IssuedBy).IsRequired();
-            builder.Property(l => l.CreationDate).IsRequired();
-            builder.Property(l => l.ExpirationDate).IsRequired();
-            builder.Property(l => l.MaxUsers).IsRequired();
-            builder.Property(l => l.Activated).IsRequired();
-            builder.Property(l => l.LicenseType).IsRequired();
+            builder.Property(l => l.IssuedTo)
+                   .IsRequired()
+                   .HasMaxLength(100);
 
-            // Configure the SoftwareProductId property
-            builder.Property(l => l.SoftwareProductId)
-                .IsRequired();
+            builder.Property(l => l.IssuedBy)
+                   .IsRequired()
+                   .HasMaxLength(100);
+
+            builder.Property(l => l.CreationDate)
+                   .IsRequired();
+
+            builder.Property(l => l.ActivationDate);
+
+            builder.Property(l => l.ExpirationDate)
+                   .IsRequired();
+
+            builder.Property(l => l.MaxUsers)
+                   .IsRequired();
+
+            builder.Property(l => l.Activated)
+                   .IsRequired();
+
+            builder.Property(l => l.LicenseType)
+                   .IsRequired()
+                   .HasConversion<int>(); // Store enum as int
+
+            builder.Property(l => l.Notes)
+                   .HasMaxLength(500); // Assuming a reasonable max length for notes
 
             // Relationships
             builder.HasOne<SoftwareProduct>()
-                .WithMany()
-                .HasForeignKey(l => l.SoftwareProductId)
-                .IsRequired();
-            // Relationship
+                   .WithMany() // No inverse navigation property in SoftwareProduct
+                   .HasForeignKey(l => l.SoftwareProductId)
+                   .OnDelete(DeleteBehavior.Cascade); // Cascade delete
 
+            // Relationships for LicenseManagerLicenses
+            builder.HasMany(l => l.LicenseManagerLicenses)
+                   .WithOne(lm => lm.License)
+                   .HasForeignKey(lm => lm.LicenseId)
+                   .OnDelete(DeleteBehavior.Cascade); // Cascade delete for related LicenseManagerLicenses
+
+            // Indexes
+            builder.HasIndex(l => l.ExpirationDate);
         }
     }
 
@@ -42,13 +66,33 @@ namespace Infrastructure.Data.config
             builder.HasKey(sp => sp.Id);
 
             // Properties
-            builder.Property(sp => sp.Name).IsRequired();
-            builder.Property(sp => sp.Version).IsRequired();
-            builder.Property(sp => sp.Description).IsRequired();
-            builder.Property(sp => sp.Vendor).IsRequired();
-            builder.Property(sp => sp.ReleaseDate).IsRequired();
+            builder.Property(sp => sp.Name)
+                   .IsRequired()
+                   .HasMaxLength(200);
 
-            // Relationships 
+            builder.Property(sp => sp.Version)
+                   .IsRequired()
+                   .HasMaxLength(50);
+
+            builder.Property(sp => sp.Description)
+                   .IsRequired()
+                   .HasMaxLength(1000);
+
+            builder.Property(sp => sp.Vendor)
+                   .IsRequired()
+                   .HasMaxLength(100);
+
+            builder.Property(sp => sp.ReleaseDate)
+                   .IsRequired();
+
+            // Relationships
+            builder.HasMany<License>()
+                   .WithOne()
+                   .HasForeignKey(l => l.SoftwareProductId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes
+            builder.HasIndex(sp => sp.Name);
         }
     }
 
@@ -60,32 +104,70 @@ namespace Infrastructure.Data.config
             builder.HasKey(u => u.Id);
 
             // Properties
-            builder.Property(u => u.Email).IsRequired();
-            builder.Property(u => u.FirstName).IsRequired();
-            builder.Property(u => u.LastName).IsRequired();
-            builder.Property(u => u.Role).IsRequired();
-            builder.Property(u => u.IsActive).IsRequired();
-            builder.Property(u => u.RegistrationDate).IsRequired();
-            builder.Property(u => u.PhoneNumber).IsRequired();
-            builder.Property(u => u.ProfilePictureUrl).IsRequired(false); ;
+            builder.Property(u => u.Email)
+                   .IsRequired()
+                   .HasMaxLength(150);
 
+            builder.HasIndex(u => u.Email)
+                   .IsUnique(); // Ensure email uniqueness
 
+            builder.Property(u => u.FirstName)
+                   .IsRequired()
+                   .HasMaxLength(100);
+
+            builder.Property(u => u.LastName)
+                   .IsRequired()
+                   .HasMaxLength(100);
+
+            builder.Property(u => u.Role)
+                   .IsRequired()
+                   .HasMaxLength(50);
+
+            builder.Property(u => u.IsActive)
+                   .IsRequired();
+
+            builder.Property(u => u.RegistrationDate)
+                   .IsRequired();
+
+            builder.Property(u => u.PhoneNumber)
+                   .IsRequired()
+                   .HasMaxLength(20);
+
+            builder.Property(u => u.ProfilePictureUrl)
+                   .HasMaxLength(200); // Assuming a reasonable max length for URL
+
+            // Relationships
+            builder.HasMany<LicenseManagerLicense>()
+                   .WithOne(lm => lm.LicenseManager)
+                   .HasForeignKey(lm => lm.LicenseManagerId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes
+            builder.HasIndex(u => u.PhoneNumber);
         }
     }
+
     public class LicenseManagerLicenseConfiguration : IEntityTypeConfiguration<LicenseManagerLicense>
     {
         public void Configure(EntityTypeBuilder<LicenseManagerLicense> builder)
-        { 
+        {
+            // Composite primary key
             builder.HasKey(lm => new { lm.LicenseId, lm.LicenseManagerId });
 
+            // Relationships
             builder.HasOne(lm => lm.License)
-                .WithMany(l => l.LicenseManagerLicenses)
-                .HasForeignKey(lm => lm.LicenseId);
+                   .WithMany(l => l.LicenseManagerLicenses)
+                   .HasForeignKey(lm => lm.LicenseId)
+                   .OnDelete(DeleteBehavior.Cascade); // Cascade delete
 
             builder.HasOne(lm => lm.LicenseManager)
-                .WithMany(m => m.LicenseManagerLicenses)
-                .HasForeignKey(lm => lm.LicenseManagerId);
+                   .WithMany(m => m.LicenseManagerLicenses)
+                   .HasForeignKey(lm => lm.LicenseManagerId)
+                   .OnDelete(DeleteBehavior.Cascade); // Cascade delete
 
+            // Indexes for performance optimization
+            builder.HasIndex(lm => lm.LicenseId);
+            builder.HasIndex(lm => lm.LicenseManagerId);
         }
     }
 }

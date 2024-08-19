@@ -8,7 +8,7 @@ namespace Core.Interfaces
         Task<LicenseDto> GetLicenseByIdAsync(int id);
         Task<IReadOnlyList<LicenseDto>> GetAllLicensesAsync();
         Task<License> CreateLicenseAsync(License license);
-        Task<License> AssignManagersToLicenseAsync(int licenseId, int[] managerId);
+        Task<LicenseDto> AssignManagersToLicenseAsync(int licenseId, int[] managerId);
         Task<License> UpdateLicenseAsync(License license);
         Task DeleteLicenseAsync(int id);
     }
@@ -27,7 +27,7 @@ namespace Core.Interfaces
         Task<LicenseManagerDto> GetLicenseManagerByIdAsync(int id);
         Task<IReadOnlyList<LicenseManagerDto>> GetAllLicenseManagersAsync();
         Task<LicenseManager> CreateLicenseManagerAsync(LicenseManager licenseManager);
-        Task<LicenseManager> AssignLicensesAsyncToManager(int ManagerId, int[] LicenseIds);
+        Task<LicenseManagerDto> AssignLicensesAsyncToManager(int ManagerId, int[] LicenseIds);
         Task<LicenseManager> UpdateLicenseManagerAsync(LicenseManager licenseManager);
         Task DeleteLicenseManagerAsync(int id);
         // Add other methods as needed

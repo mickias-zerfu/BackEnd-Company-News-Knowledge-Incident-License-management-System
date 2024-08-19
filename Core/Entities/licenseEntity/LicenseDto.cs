@@ -19,6 +19,6 @@ namespace Core.Entities.licenseEntity
         public string Notes { get; set; }
         public int SoftwareProductId { get; set; }
         public SoftwareProduct SoftwareProduct { get; set; }
-        public ICollection<LicenseManager> AssignedManagers { get; set; }
+        public List<LicenseManager> AssignedManagers { get; set; }
     }
 }
