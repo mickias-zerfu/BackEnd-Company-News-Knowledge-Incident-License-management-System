@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Core.Entities.licenseEntity
 {
     public class LicenseManagerLicense
@@ -6,6 +8,7 @@ namespace Core.Entities.licenseEntity
         public License License { get; set; }
 
         public int LicenseManagerId { get; set; }
+        [JsonIgnore] 
         public LicenseManager LicenseManager { get; set; }
 
     }

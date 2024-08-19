@@ -24,6 +24,10 @@
     
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     
+     <!--  <PackageReference Include="Oracle.ManagedDataAccess" Version="23.5.1" />
+	
+	<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.1" />-->
+    
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="8.0.0" />
     
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />

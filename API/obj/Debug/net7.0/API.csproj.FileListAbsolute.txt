@@ -401,3 +401,7 @@ C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\M
 C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\Oracle.ManagedDataAccess.dll
+C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\Oracle.EntityFrameworkCore.dll
+C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\Mikiyas.Zerfu\Desktop\web\zemen-internal-backend\api\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
