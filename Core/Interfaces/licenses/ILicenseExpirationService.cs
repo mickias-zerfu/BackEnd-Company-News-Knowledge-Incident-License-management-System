@@ -9,6 +9,7 @@ namespace Core.Interfaces.licenses
     public interface ILicenseExpirationService
     {
         Task CheckLicenseExpirationAsync();
+        Task CheckLicenseExpirationAsyncById(int id);
     }
     public interface IEmailNotificationService
     {

@@ -69,6 +69,8 @@ builder.Services.AddScoped<ILicenseManagerRepository, LicenseManagerRepository>(
 builder.Services.AddScoped<ILicenseExpirationService, LicenseExpirationService>();
 builder.Services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 builder.Services.AddScoped<ILicenseDashboardService, LicenseDashboardService>();
+builder.Services.AddHostedService<DailyLicenseCheckService>();
+
 builder.Services.Configure<ApiBehaviorOptions>(options =>
            {
                options.InvalidModelStateResponseFactory = actionContext =>

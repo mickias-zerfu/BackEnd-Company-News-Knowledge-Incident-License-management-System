@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qRhsCjPOUmYt/sI1drz1gFPF66wnL+0UNo+2c5TW5Uw=",
+  "Hash": "mj6LUkNHGgfcq3H4v7zborBNzVvMCyXksNEIteDvS80=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -587,6 +587,25 @@
       "OriginalItemSpec": "wwwroot\\Images\\new\\9935a8c2-9613-4088-9943-46da3be7e172.png"
     },
     {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\99c5186b-0c3d-42fb-b1a2-.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/99c5186b-0c3d-42fb-b1a2-.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\99c5186b-0c3d-42fb-b1a2-.png"
+    },
+    {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\9b426a23-e660-4ea6-9155-af72085740c3.png",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -737,6 +756,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\ba737701-51f3-4e5e-9b7e-1db23696481a.png"
+    },
+    {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\bd62ce67-1cef-48f5-a294-.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/bd62ce67-1cef-48f5-a294-.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\bd62ce67-1cef-48f5-a294-.png"
     },
     {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\c43f96fd-e2b7-4fc8-be11-6cb7e3980fb4.jpg",
@@ -927,6 +965,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\new\\da614f49-2899-4330-8e01-.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\da65d284-66cc-46c4-a3c2-.PNG",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Images/new/da65d284-66cc-46c4-a3c2-.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\new\\da65d284-66cc-46c4-a3c2-.PNG"
     },
     {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\Images\\new\\e0be0e1a-eff1-4319-bf47-c98a9213432f.jpg",
@@ -1497,6 +1554,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\temp\\e4157e42-bd09-40f5-a5df-9ab0c99b2f28_colab recipt 3.png"
+    },
+    {
+      "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\temp\\ea7b9823-753a-4bda-903b-191fc5d66fa1_TELE BIRR.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "temp/ea7b9823-753a-4bda-903b-191fc5d66fa1_TELE BIRR.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\ea7b9823-753a-4bda-903b-191fc5d66fa1_TELE BIRR.pdf"
     },
     {
       "Identity": "C:\\Users\\Mikiyas.Zerfu\\Desktop\\web\\zemen-internal-backend\\api\\wwwroot\\temp\\eefaa2de-502b-4b85-a3a1-c12d38f7ac4f_colab recipt jan.png",
