@@ -92,7 +92,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        //builder.WithOrigins("https://s-m-bwm-001.zemenbank.local:6060")
+        //builder.WithOrigins("https://s-m-bwm-001..local:6060")
         //       .AllowAnyMethod()
         //       .AllowAnyHeader();
         builder.AllowAnyOrigin()

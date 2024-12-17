@@ -25,7 +25,7 @@ namespace Infrastructure.Data.Auth
 
         public async Task<DomainDto> IsValidUser(string username, string password)
         {
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "Zemenbank.local"))
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "yourcompany.local"))
             {
                 UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
                 if (user == null)
@@ -86,7 +86,7 @@ namespace Infrastructure.Data.Auth
         }
         public async Task<DomainDto> GetCurrentUser(string username)
         {
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "Zemenbank.local"))
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "yourcompany.local"))
             {
                 UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
                 if (user == null)

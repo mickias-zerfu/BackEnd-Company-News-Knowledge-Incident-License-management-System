@@ -45,7 +45,7 @@ namespace Infrastructure.Data.Licenses
                 message += $" &emsp; If you have any questions or need assistance, please do not hesitate to contact us.<br/><br/>";
                 message += "Best regards,<br/><br/>";
 
-                message += "Zemen Online Banking Team<br/><br/><br/><br/>";
+                message += " Online Banking Team<br/><br/><br/><br/>";
                 await SendEmailAsync(manager, "License Expiration Notification", message);
             }
         }
@@ -54,15 +54,15 @@ namespace Infrastructure.Data.Licenses
         {
             try
             {
-                var fromAddress = new MailAddress("License.Notification@zemenbank.com", "License Notification");
+                var fromAddress = new MailAddress("", "License Notification");
                 var toAddress = new MailAddress(manager.Email, $"{manager.FirstName} {manager.LastName}");
 
-                var fromPassword = "P@ssw0rd";
+                var fromPassword = "";
                 //Environment.GetEnvironmentVariable("EMAIL_PASSWORD"); // Retrieve password from secure storage
 
-                var smtpClient = new SmtpClient("smtp.zemenbank.com")
+                var smtpClient = new SmtpClient("smtp.yourcompany.com")
                 {
-                    Host = "smtp.zemenbank.com",
+                    Host = "smtp.yourcompany.com",
                     Port = 25,
                     EnableSsl = false,
                     Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
